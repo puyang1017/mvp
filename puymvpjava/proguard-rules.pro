@@ -60,4 +60,4 @@
 
 -include proguard-support-v7-appcompat.pro
 
-
+-keep class com.android.puy.puymvpjava.** {*;}
