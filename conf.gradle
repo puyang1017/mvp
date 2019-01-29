@@ -1,0 +1,106 @@
+ext {
+
+    android = [
+            compileSdkVersion: 28,
+
+            minSdkVersion    : 20,
+            targetSdkVersion : 28,
+
+            versionCode      : 23,
+            versionName      : '2.0.0',
+
+            VSupportSdk      : '28.0.0',
+            VRetrofitSdk     : "2.2.0",
+            VOkhttp          : "3.4.2",
+            VRxlifecycle     : "2.0.1"
+    ]
+    dependencies = [
+            "appcompat-v7"               : "com.android.support:appcompat-v7:${android["VSupportSdk"]}",
+            "support-v4"                 : "com.android.support:support-v4:${android["VSupportSdk"]}",
+            "design"                     : "com.android.support:design:${android["VSupportSdk"]}",
+            "annotations"                : "com.android.support:support-annotations:${android["VSupportSdk"]}",
+            "recyclerview-v7"            : "com.android.support:recyclerview-v7:${android["VSupportSdk"]}",
+            "percent"                    : "com.android.support:percent:${android["VSupportSdk"]}",
+            "constraint-layout"          : 'com.android.support.constraint:constraint-layout:1.0.2',
+
+            "butterknife"                : "com.jakewharton:butterknife:8.4.0",
+            "butterknife-apt"            : "com.jakewharton:butterknife-compiler:8.4.0",
+            "eventbus"                   : "org.greenrobot:eventbus:3.0.0",
+            "glide"                      : "com.github.bumptech.glide:glide:3.7.0",
+            "picasso"                    : "com.squareup.picasso:picasso:2.5.2",
+            "xrecyclerview"              : "com.github.limedroid:ARecyclerView:v1.2.1",
+            "avi-loading"                : "com.wang.avi:library:1.0.2",
+
+            "gson"                       : "com.google.code.gson:gson:2.6.2",
+            "rxandroid"                  : "io.reactivex.rxjava2:rxandroid:2.0.2",
+            "rxjava"                     : "io.reactivex.rxjava2:rxjava:2.2.0",
+            "retrofit"                   : "com.squareup.retrofit2:retrofit:${android["VRetrofitSdk"]}",
+            "retrofit-converter-gson"    : "com.squareup.retrofit2:converter-gson:${android["VRetrofitSdk"]}",
+            "retrofit-adapter-rxjava"    : "com.squareup.retrofit2:adapter-rxjava2:${android["VRetrofitSdk"]}",
+            "okhttp3-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:${android["VOkhttp"]}",
+            "okhttp3"                    : "com.squareup.okhttp3:okhttp:${android["VOkhttp"]}",
+            "rxlifecycle"                : "com.trello.rxlifecycle2:rxlifecycle:${android["VRxlifecycle"]}",
+            "rxlifecycle-android"        : "com.trello.rxlifecycle2:rxlifecycle-android:${android["VRxlifecycle"]}",
+            "rxlifecycle-components"     : "com.trello.rxlifecycle2:rxlifecycle-components:${android["VRxlifecycle"]}",
+            "rxpermissions"              : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar",
+
+            "canary-debug"               : "com.squareup.leakcanary:leakcanary-android:1.4-beta2",
+            "canary-release"             : "com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2",
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            "multidex"                   : "com.android.support:multidex:1.0.2",
+            "barlibrary"                 : "com.gyf.barlibrary:barlibrary:2.3.0",
+            "lottie"                     : "com.airbnb.android:lottie:2.6.1",
+            "okhttpUtils"                : "com.zhy:okhttputils:2.6.2",
+            "dbflow-processor"           : "com.github.Raizlabs.DBFlow:dbflow-processor:4.0.0-beta7",
+            "dbflow-core"                : "com.github.Raizlabs.DBFlow:dbflow-core:4.0.0-beta7",
+            "dbflow"                     : "com.github.Raizlabs.DBFlow:dbflow:4.0.0-beta7",
+//            "swipebacklayout"               :"cn.bingoogolapple:bga-swipebacklayout:1.1.8@aar",
+            "circleimageview"            : "de.hdodenhof:circleimageview:2.1.0",
+            "ticker"                     : "com.robinhood.ticker:ticker:1.2.2",
+            "swipebacklayout"            : 'me.imid.swipebacklayout.lib:library:1.1.0',
+            "bugly"                      : 'com.tencent.bugly:crashreport_upgrade:1.3.5',
+            "bugly-ndk"                  : 'com.tencent.bugly:nativecrashreport:3.3.1',
+            "bugly-tinker"               : 'com.tencent.tinker:tinker-android-lib:1.9.6',
+            "jpush"                      : 'cn.jiguang.sdk:jpush:3.1.1',
+            "jcore"                      : 'cn.jiguang.sdk:jcore:1.1.9',
+            //信鸽jar
+            "xinge"                      : 'com.tencent.xinge:xinge:3.2.6-release',
+            "xingehw"                    :'com.tencent.xinge:xghw:3.2.6-release',
+            "xingemipush"                :'com.tencent.xinge:mipush:3.2.6-release',
+            "xingemz"                     :'com.tencent.xinge:xgmz:3.2.6-release',
+            //jg包
+            "xingejg"                    :'com.tencent.jg:jg:1.1',
+            //wup包
+            "xingewup"                   : 'com.tencent.wup:wup:1.0.0.E-release',
+            //mid包
+            "xingemid"                   : 'com.tencent.mid:mid:4.0.6-release',
+            "pinyin"                     : 'com.belerweb:pinyin4j:2.5.0',
+            "cookiebar"                  : 'com.liuguangqiang.cookie:library:0.3',
+            "ARecyclerView"              : 'com.github.limedroid:ARecyclerView:v1.2.1',
+            "explosionfield"             : 'tyrantgit:explosionfield:1.0.1',
+            "umeng-common"               : 'com.umeng.sdk:common:1.5.0',
+            "umeng-analytics"            : 'com.umeng.sdk:analytics:7.5.0',
+            "umeng-utdid"                : 'com.umeng.sdk:utdid:1.1.5.3',
+            "umeng-debug"                : 'com.umeng.sdk:debug:1.0.0',
+            "umeng-share"                : 'com.umeng.sdk:share-core:6.9.2',
+            "umeng-share-qq"             : 'com.umeng.sdk:share-qq:6.9.2.0',
+            "umeng-share-wechat"         : 'com.umeng.sdk:share-wechat:6.9.2',
+            "umeng-share-sina"           : 'com.umeng.sdk:share-sina:6.9.2',
+            "logger"                     : 'com.orhanobut:logger:2.2.0',
+            "walle"                      : 'com.meituan.android.walle:library:1.1.6',
+            "mdprogress"                :'com.jaywei:mdprogress:1.0.2',
+            "dialogs"                   :'com.afollestad.material-dialogs:core:0.9.6.0',
+            "reactivenetwork"           :'com.github.pwittchen:reactivenetwork-rx2:2.1.0',
+            "gif"                       : 'pl.droidsonroids.gif:android-gif-drawable:1.2.16',
+            "switchbutton"              :'com.github.zcweng:switch-button:0.0.3@aar',
+            "tablayout"                 : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
+            "filedownloader"            :'com.liulishuo.filedownloader:library:1.7.6-SNAPSHOT',
+            "dynamicAnimation"          :'com.android.support:support-dynamic-animation:25.3.1',
+            "scalablevideoview"         :'com.yqritc:android-scalablevideoview:1.0.4',
+            "mqttv3"                    :'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0',
+            "SmartRefreshLayout"        :'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18',
+            "fragmentation"             :'me.yokeyword:fragmentation:1.3.6',
+            "facebookrebound"            :'com.facebook.rebound:rebound:0.3.8',
+    ]
+
+}
