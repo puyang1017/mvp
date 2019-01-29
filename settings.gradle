@@ -1,1 +1,1 @@
-include ':app', ':puymvpjava', ':puymvpkotlin'
+include ':app', ':puymvpjava'
