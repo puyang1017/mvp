@@ -2,7 +2,7 @@ package com.android.puy.puymvpjava.log;
 
 import android.text.TextUtils;
 import android.util.Log;
-import cn.droidlover.xdroidmvp.XDroidConf;
+import com.android.puy.puymvpjava.XDroidConf;
 
 
 public class XLog {

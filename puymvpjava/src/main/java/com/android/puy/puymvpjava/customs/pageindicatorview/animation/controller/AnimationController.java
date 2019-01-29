@@ -1,11 +1,11 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller;
 
 import android.support.annotation.NonNull;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.type.AnimationType;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.type.BaseAnimation;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Orientation;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.utils.CoordinatesUtils;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.AnimationType;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.BaseAnimation;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Orientation;
+import com.android.puy.puymvpjava.customs.pageindicatorview.utils.CoordinatesUtils;
 
 public class AnimationController {
 

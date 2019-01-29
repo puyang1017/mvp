@@ -21,15 +21,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.type.*;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.controller.DrawController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Orientation;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.PositionSavedState;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.RtlMode;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.utils.CoordinatesUtils;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.utils.DensityUtils;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.utils.IdUtils;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.*;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.controller.DrawController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Orientation;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.PositionSavedState;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.RtlMode;
+import com.android.puy.puymvpjava.customs.pageindicatorview.utils.CoordinatesUtils;
+import com.android.puy.puymvpjava.customs.pageindicatorview.utils.DensityUtils;
+import com.android.puy.puymvpjava.customs.pageindicatorview.utils.IdUtils;
 
 public class PageIndicatorView extends View implements ViewPager.OnPageChangeListener, IndicatorManager.Listener, ViewPager.OnAdapterChangeListener, View.OnTouchListener {
 

@@ -3,10 +3,10 @@ package com.android.puy.puymvpjava.customs.pageindicatorview.draw.drawer.type;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.Value;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.type.SlideAnimationValue;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Orientation;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.Value;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.type.SlideAnimationValue;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Orientation;
 
 public class SlideDrawer extends BaseDrawer {
 

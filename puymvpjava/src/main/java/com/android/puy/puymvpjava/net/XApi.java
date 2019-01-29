@@ -1,7 +1,7 @@
 package com.android.puy.puymvpjava.net;
 
-import cn.droidlover.xdroidmvp.kit.Kits;
-import cn.droidlover.xdroidmvp.net.progress.ProgressHelper;
+import com.android.puy.puymvpjava.kit.Kits;
+import com.android.puy.puymvpjava.net.progress.ProgressHelper;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;

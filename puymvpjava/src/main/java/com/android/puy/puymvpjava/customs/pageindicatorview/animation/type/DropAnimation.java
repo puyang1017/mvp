@@ -5,8 +5,8 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.controller.ValueController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.type.DropAnimationValue;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.ValueController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.type.DropAnimationValue;
 
 public class DropAnimation extends BaseAnimation<AnimatorSet> {
 

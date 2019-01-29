@@ -1,7 +1,7 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview.animation.data;
 
 import android.support.annotation.NonNull;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.type.*;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.type.*;
 
 public class AnimationValue {
 

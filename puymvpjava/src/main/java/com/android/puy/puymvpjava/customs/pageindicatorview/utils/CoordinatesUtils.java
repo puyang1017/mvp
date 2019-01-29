@@ -3,9 +3,9 @@ package com.android.puy.puymvpjava.customs.pageindicatorview.utils;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Pair;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.type.AnimationType;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Orientation;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.AnimationType;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Orientation;
 
 public class CoordinatesUtils {
 

@@ -5,8 +5,8 @@ import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.controller.ValueController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.type.ScaleAnimationValue;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.ValueController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.type.ScaleAnimationValue;
 
 public class ScaleAnimation extends ColorAnimation {
 

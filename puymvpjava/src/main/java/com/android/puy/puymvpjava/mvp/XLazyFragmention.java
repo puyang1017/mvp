@@ -4,10 +4,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import butterknife.Unbinder;
-import cn.droidlover.xdroidmvp.XDroidConf;
-import cn.droidlover.xdroidmvp.customs.material.MaterialRippleLayout;
-import cn.droidlover.xdroidmvp.event.BusProvider;
-import cn.droidlover.xdroidmvp.kit.KnifeKit;
+import com.android.puy.puymvpjava.XDroidConf;
+import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
+import com.android.puy.puymvpjava.event.BusProvider;
+import com.android.puy.puymvpjava.kit.KnifeKit;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import org.greenrobot.eventbus.EventBus;
 

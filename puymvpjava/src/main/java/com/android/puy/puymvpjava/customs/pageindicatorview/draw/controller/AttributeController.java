@@ -7,12 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import cn.droidlover.xdroidmvp.R;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.type.*;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Orientation;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.RtlMode;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.utils.DensityUtils;
+import com.android.puy.puymvpjava.R;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.*;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Orientation;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.RtlMode;
+import com.android.puy.puymvpjava.customs.pageindicatorview.utils.DensityUtils;
 
 
 public class AttributeController {

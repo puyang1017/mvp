@@ -1,11 +1,11 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview;
 
 import android.support.annotation.Nullable;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.AnimationManager;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.controller.ValueController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.Value;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.DrawManager;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.AnimationManager;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.ValueController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.Value;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.DrawManager;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
 
 public class IndicatorManager implements ValueController.UpdateListener {
 

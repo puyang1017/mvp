@@ -4,10 +4,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.NonNull;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.Value;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.type.WormAnimationValue;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Orientation;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.Value;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.type.WormAnimationValue;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Orientation;
 
 public class WormDrawer extends BaseDrawer {
 

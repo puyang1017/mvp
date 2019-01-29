@@ -4,11 +4,11 @@ import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.Value;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.type.AnimationType;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.drawer.Drawer;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.utils.CoordinatesUtils;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.Value;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.AnimationType;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.drawer.Drawer;
+import com.android.puy.puymvpjava.customs.pageindicatorview.utils.CoordinatesUtils;
 
 public class DrawController {
 

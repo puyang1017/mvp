@@ -1,8 +1,8 @@
 package com.android.puy.puymvpjava;
 
-import cn.droidlover.xdroidmvp.imageloader.ILoader;
-import cn.droidlover.xdroidmvp.kit.Kits;
-import cn.droidlover.xdroidmvp.router.Router;
+import com.android.puy.puymvpjava.imageloader.ILoader;
+import com.android.puy.puymvpjava.kit.Kits;
+import com.android.puy.puymvpjava.router.Router;
 
 
 public class XDroidConf {

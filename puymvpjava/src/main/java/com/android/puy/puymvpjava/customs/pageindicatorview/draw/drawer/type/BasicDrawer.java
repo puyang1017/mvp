@@ -3,8 +3,8 @@ package com.android.puy.puymvpjava.customs.pageindicatorview.draw.drawer.type;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.type.AnimationType;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.AnimationType;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
 
 public class BasicDrawer extends BaseDrawer {
 

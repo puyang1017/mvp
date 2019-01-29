@@ -2,8 +2,8 @@ package com.android.puy.puymvpjava.customs.pageindicatorview.animation.controlle
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.Value;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.type.*;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.Value;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.*;
 
 public class ValueController {
 

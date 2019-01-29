@@ -3,9 +3,9 @@ package com.android.puy.puymvpjava.customs.pageindicatorview.draw.drawer.type;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.Value;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.type.ColorAnimationValue;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.Value;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.type.ColorAnimationValue;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
 
 public class ColorDrawer extends BaseDrawer {
 

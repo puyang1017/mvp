@@ -8,7 +8,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import static cn.droidlover.xdroidmvp.mqttv3.MacSignature.macSignature;
+import static com.android.puy.puymvpjava.mqttv3.MacSignature.macSignature;
 
 /**
  * mqttv3 封装类

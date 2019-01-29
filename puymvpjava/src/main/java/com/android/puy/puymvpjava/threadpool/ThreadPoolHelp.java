@@ -9,7 +9,7 @@
  */
 package com.android.puy.puymvpjava.threadpool;
 
-import cn.droidlover.xdroidmvp.threadpool.builder.*;
+import com.android.puy.puymvpjava.threadpool.builder.*;
 
 import java.util.concurrent.*;
 

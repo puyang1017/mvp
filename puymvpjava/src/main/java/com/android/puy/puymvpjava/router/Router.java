@@ -7,7 +7,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import cn.droidlover.xdroidmvp.XDroidConf;
+import com.android.puy.puymvpjava.XDroidConf;
 
 import java.io.Serializable;
 import java.util.ArrayList;

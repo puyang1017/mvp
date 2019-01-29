@@ -3,7 +3,7 @@ package com.android.puy.puymvpjava.customs.pageindicatorview.animation.type;
 import android.animation.IntEvaluator;
 import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.controller.ValueController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.ValueController;
 
 public class ScaleDownAnimation extends ScaleAnimation {
 

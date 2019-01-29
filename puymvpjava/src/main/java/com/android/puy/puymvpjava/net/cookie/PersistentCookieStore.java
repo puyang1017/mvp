@@ -3,7 +3,7 @@ package com.android.puy.puymvpjava.net.cookie;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
-import cn.droidlover.xdroidmvp.log.XLog;
+import com.android.puy.puymvpjava.log.XLog;
 import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 

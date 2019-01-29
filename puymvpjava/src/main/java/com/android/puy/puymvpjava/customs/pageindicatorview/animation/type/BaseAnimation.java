@@ -4,7 +4,7 @@ import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.controller.ValueController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.ValueController;
 
 public abstract class BaseAnimation<T extends Animator> {
 

@@ -7,11 +7,11 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Pair;
 import android.view.MotionEvent;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.data.Value;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.controller.AttributeController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.controller.DrawController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.controller.MeasureController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.Value;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.controller.AttributeController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.controller.DrawController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.controller.MeasureController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
 
 public class DrawManager {
 

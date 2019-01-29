@@ -2,7 +2,7 @@ package com.android.puy.puymvpjava.net.progress;
 
 import android.os.Handler;
 import android.os.Looper;
-import cn.droidlover.xdroidmvp.kit.Kits;
+import com.android.puy.puymvpjava.kit.Kits;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;

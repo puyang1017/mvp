@@ -2,7 +2,7 @@ package com.android.puy.puymvpjava.cache;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import cn.droidlover.xdroidmvp.XDroidConf;
+import com.android.puy.puymvpjava.XDroidConf;
 
 
 public class SharedPref implements ICache {

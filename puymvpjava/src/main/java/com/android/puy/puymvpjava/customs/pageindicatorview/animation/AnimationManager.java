@@ -1,9 +1,9 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview.animation;
 
 import android.support.annotation.NonNull;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.controller.AnimationController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.animation.controller.ValueController;
-import cn.droidlover.xdroidmvp.customs.pageindicatorview.draw.data.Indicator;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.AnimationController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.ValueController;
+import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
 
 public class AnimationManager {
 

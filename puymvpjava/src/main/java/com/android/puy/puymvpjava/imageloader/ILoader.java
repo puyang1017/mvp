@@ -3,7 +3,7 @@ package com.android.puy.puymvpjava.imageloader;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-import cn.droidlover.xdroidmvp.XDroidConf;
+import com.android.puy.puymvpjava.XDroidConf;
 
 import java.io.File;
 
