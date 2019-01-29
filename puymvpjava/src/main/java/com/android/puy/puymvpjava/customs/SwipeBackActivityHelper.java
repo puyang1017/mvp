@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
-import cn.droidlover.xdroidmvp.R;
+import com.android.puy.puymvpjava.R;
 import me.imid.swipebacklayout.lib.Utils;
 
 public class SwipeBackActivityHelper {
