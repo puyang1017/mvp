@@ -2,6 +2,7 @@ package com.android.puy.puymvpjava.mvp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.barlibrary.ImmersionOwner;
+import com.gyf.barlibrary.ImmersionProxy;
 import me.yokeyword.fragmentation.SupportFragment;
 
 import java.lang.reflect.Field;
 
 
-public class LazyFragmention extends SupportFragment {
+public class LazyFragmention extends SupportFragment implements ImmersionOwner {
     protected LayoutInflater layoutInflater;
     protected Activity context;
 
@@ -34,10 +38,15 @@ public class LazyFragmention extends SupportFragment {
 
     private static final String TAG_ROOT_FRAMELAYOUT = "tag_root_framelayout";
 
+    /**
+     * ImmersionBar代理类
+     */
+    private ImmersionProxy mImmersionProxy = new ImmersionProxy(this);
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mImmersionProxy.onActivityCreated(savedInstanceState);
         this.layoutInflater = inflater;
         this.container = container;
         onCreateView(savedInstanceState);
@@ -48,6 +57,7 @@ public class LazyFragmention extends SupportFragment {
     }
 
     private void onCreateView(Bundle savedInstanceState) {
+        mImmersionProxy.onCreate(savedInstanceState);
         this.saveInstanceState = savedInstanceState;
         boolean isVisible;
         if (isVisibleToUserState == STATE_NO_SET) {
@@ -127,6 +137,7 @@ public class LazyFragmention extends SupportFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
+        mImmersionProxy.setUserVisibleHint(isVisibleToUser);
         isVisibleToUserState = isVisibleToUser ? STATE_VISIBLE : STATE_NO_VISIBLE;
         if (isVisibleToUser
                 && !isInitReady
@@ -149,6 +160,7 @@ public class LazyFragmention extends SupportFragment {
     @Override
     public void onResume() {
         super.onResume();
+        mImmersionProxy.onResume();
         if (isInitReady) {
             onResumeLazy();
         }
@@ -157,9 +169,28 @@ public class LazyFragmention extends SupportFragment {
     @Override
     public void onPause() {
         super.onPause();
+        mImmersionProxy.onPause();
         if (isInitReady) {
             onPauseLazy();
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mImmersionProxy.onDestroy();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        mImmersionProxy.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mImmersionProxy.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -249,4 +280,51 @@ public class LazyFragmention extends SupportFragment {
     }
 
 
+    /**
+     * 懒加载，在view初始化完成之前执行
+     * On lazy after view.
+     */
+    @Override
+    public void onLazyBeforeView() {
+    }
+
+    /**
+     * 懒加载，在view初始化完成之后执行
+     * On lazy before view.
+     */
+    @Override
+    public void onLazyAfterView() {
+    }
+
+    /**
+     * Fragment用户可见时候调用
+     * On visible.
+     */
+    @Override
+    public void onVisible() {
+    }
+
+    /**
+     * Fragment用户不可见时候调用
+     * On invisible.
+     */
+    @Override
+    public void onInvisible() {
+    }
+
+    @Override
+    public void initImmersionBar() {
+        ImmersionBar.with(this).keyboardEnable(true).init();
+    }
+
+    /**
+     * 是否可以实现沉浸式，当为true的时候才可以执行initImmersionBar方法
+     * Immersion bar enabled boolean.
+     *
+     * @return the boolean
+     */
+    @Override
+    public boolean immersionBarEnabled() {
+        return true;
+    }
 }
