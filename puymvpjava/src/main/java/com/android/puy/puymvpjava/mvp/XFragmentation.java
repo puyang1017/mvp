@@ -142,11 +142,22 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
 
     }
 
-    public void setMaterialRipple(View ...views){
-        for (View view:views){
+    public void setMaterialRipple(View... views) {
+        for (View view : views) {
             MaterialRippleLayout.on(view)
                     .rippleColor(Color.BLACK)
                     .create();
         }
     }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        //在onSupportVisible实现沉浸式
+        initImmersionBar();
+    }
+
+    public void initImmersionBar() {
+    }
+
 }

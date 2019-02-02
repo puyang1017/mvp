@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import com.gyf.barlibrary.ImmersionBar;
 import com.gyf.barlibrary.ImmersionOwner;
 import com.gyf.barlibrary.ImmersionProxy;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -279,52 +278,33 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
 
     }
 
-
-    /**
-     * 懒加载，在view初始化完成之前执行
-     * On lazy after view.
-     */
     @Override
     public void onLazyBeforeView() {
+
     }
 
-    /**
-     * 懒加载，在view初始化完成之后执行
-     * On lazy before view.
-     */
     @Override
     public void onLazyAfterView() {
+
     }
 
-    /**
-     * Fragment用户可见时候调用
-     * On visible.
-     */
     @Override
     public void onVisible() {
+
     }
 
-    /**
-     * Fragment用户不可见时候调用
-     * On invisible.
-     */
     @Override
     public void onInvisible() {
+
     }
 
     @Override
     public void initImmersionBar() {
-        ImmersionBar.with(this).keyboardEnable(true).init();
+
     }
 
-    /**
-     * 是否可以实现沉浸式，当为true的时候才可以执行initImmersionBar方法
-     * Immersion bar enabled boolean.
-     *
-     * @return the boolean
-     */
     @Override
     public boolean immersionBarEnabled() {
-        return true;
+        return false;
     }
 }

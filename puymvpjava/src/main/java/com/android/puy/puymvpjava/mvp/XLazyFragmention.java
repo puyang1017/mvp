@@ -8,12 +8,13 @@ import com.android.puy.puymvpjava.XDroidConf;
 import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
 import com.android.puy.puymvpjava.event.BusProvider;
 import com.android.puy.puymvpjava.kit.KnifeKit;
+import com.gyf.barlibrary.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import org.greenrobot.eventbus.EventBus;
 
 
 public abstract class XLazyFragmention<P extends IPresent> extends LazyFragmention implements IView<P> {
-
+    protected ImmersionBar mImmersionBar;
     private VDelegate vDelegate;
     private P p;
 
@@ -113,5 +114,15 @@ public abstract class XLazyFragmention<P extends IPresent> extends LazyFragmenti
                     .rippleColor(Color.BLACK)
                     .create();
         }
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        //在onSupportVisible实现沉浸式
+        initImmersionBar();
+    }
+
+    public void initImmersionBar() {
     }
 }
