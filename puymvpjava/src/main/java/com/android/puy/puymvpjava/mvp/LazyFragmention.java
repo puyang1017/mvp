@@ -29,6 +29,7 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
     private Bundle saveInstanceState;
     private boolean isLazyEnable = true;
     private boolean isStart = false;
+    private boolean isKotlinInitData = false;
     private FrameLayout layout;
 
     private static final int STATE_VISIBLE = 1; //用户可见
@@ -200,6 +201,10 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
                 && getUserVisibleHint()) {
             isStart = true;
             onStartLazy();
+            if (!isKotlinInitData) {
+                onKotlinInitData();
+                isKotlinInitData = true;
+            }
         }
     }
 
@@ -255,6 +260,10 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
     }
 
     protected void onCreateViewLazy(Bundle savedInstanceState) {
+
+    }
+
+    protected void onKotlinInitData() {
 
     }
 
