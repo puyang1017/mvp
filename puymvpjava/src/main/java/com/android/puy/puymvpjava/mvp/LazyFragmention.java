@@ -144,17 +144,16 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
                 && getRootView() != null) {
             isInitReady = true;
             onCreateViewLazy(saveInstanceState);
+            onResumeLazy();
         }
         if (isInitReady && getRootView() != null) {
             if (isVisibleToUser) {
                 isStart = true;
+                onStartLazy();
             } else {
                 isStart = false;
+                onStopLazy();
             }
-        }
-        if (getUserVisibleHint() && !isKotlinInitData) {
-            onKotlinInitData();
-            isKotlinInitData = true;
         }
     }
 
@@ -202,6 +201,10 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
                 && getUserVisibleHint()) {
             isStart = true;
             onStartLazy();
+            if (!isKotlinInitData) {
+                onKotlinInitData();
+                isKotlinInitData = true;
+            }
         }
     }
 
