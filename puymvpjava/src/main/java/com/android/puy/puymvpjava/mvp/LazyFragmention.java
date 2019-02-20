@@ -155,6 +155,11 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
                 onStopLazy();
             }
         }
+        if (isVisibleToUser && !isKotlinInitData) {
+            onKotlinInitData();
+            isKotlinInitData = true;
+        }
+
     }
 
     @Override
@@ -201,10 +206,6 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
                 && getUserVisibleHint()) {
             isStart = true;
             onStartLazy();
-            if (!isKotlinInitData) {
-                onKotlinInitData();
-                isKotlinInitData = true;
-            }
         }
     }
 
