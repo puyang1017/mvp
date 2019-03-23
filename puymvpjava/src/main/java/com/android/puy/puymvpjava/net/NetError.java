@@ -4,6 +4,7 @@ package com.android.puy.puymvpjava.net;
 public class NetError extends Exception {
     private Throwable exception;
     private int type = NoConnectError;
+    private int httpType;
 
     public static final int ParseError = 650;   //数据解析异常
     public static final int NoConnectError = 651;   //无连接异常
@@ -30,5 +31,13 @@ public class NetError extends Exception {
 
     public int getType() {
         return type;
+    }
+
+    public int getHttpType() {
+        return httpType;
+    }
+
+    public void setHttpType(int httpType) {
+        this.httpType = httpType;
     }
 }

@@ -4,6 +4,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import io.reactivex.subscribers.ResourceSubscriber;
 import org.json.JSONException;
+import retrofit2.HttpException;
 
 import java.net.UnknownHostException;
 
@@ -34,6 +35,10 @@ public abstract class ApiSubscriber<T extends IModel> extends ResourceSubscriber
                 if (XApi.getCommonProvider().handleError(error)) {        //使用通用异常处理
                     return;
                 }
+            }
+
+            if (e instanceof HttpException) {
+                error.setHttpType(((HttpException) e).code());
             }
             onFail(error);
         }
