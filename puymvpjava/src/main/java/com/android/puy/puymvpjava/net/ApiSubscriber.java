@@ -24,7 +24,11 @@ public abstract class ApiSubscriber<T extends IModel> extends ResourceSubscriber
                         || e instanceof JsonSyntaxException) {
                     error = new NetError(e, NetError.ParseError);
                 } else {
-                    error = new NetError(e, NetError.OtherError);
+                    if (e instanceof HttpException) {
+                        error = new NetError(e, NetError.HttpError, ((HttpException) e).code());
+                    } else {
+                        error = new NetError(e, NetError.OtherError);
+                    }
                 }
             } else {
                 error = (NetError) e;

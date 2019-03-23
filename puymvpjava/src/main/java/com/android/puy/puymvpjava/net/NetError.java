@@ -12,6 +12,13 @@ public class NetError extends Exception {
     public static final int NoDataError = 653;   //无数据返回异常
     public static final int BusinessError = 654;   //业务异常
     public static final int OtherError = 655;   //其他异常
+    public static final int HttpError = 656;   //Http异常
+
+    public NetError(Throwable exception, int type, int httpType) {
+        this.exception = exception;
+        this.type = type;
+        this.httpType = httpType;
+    }
 
     public NetError(Throwable exception, int type) {
         this.exception = exception;
@@ -39,5 +46,14 @@ public class NetError extends Exception {
 
     public void setHttpType(int httpType) {
         this.httpType = httpType;
+    }
+
+    @Override
+    public String toString() {
+        return "NetError{" +
+                "exception=" + exception +
+                ", type=" + type +
+                ", httpType=" + httpType +
+                '}';
     }
 }
