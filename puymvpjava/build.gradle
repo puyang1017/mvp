@@ -47,7 +47,6 @@ dependencies {
     implementation rootProject.ext.dependencies["swipebacklayout"]
     implementation rootProject.ext.dependencies["umeng-common"]
     implementation rootProject.ext.dependencies["umeng-analytics"]
-    implementation rootProject.ext.dependencies["umeng-utdid"]
     implementation rootProject.ext.dependencies["umeng-debug"]
     implementation rootProject.ext.dependencies["umeng-share"]
     implementation rootProject.ext.dependencies["umeng-share-qq"]
