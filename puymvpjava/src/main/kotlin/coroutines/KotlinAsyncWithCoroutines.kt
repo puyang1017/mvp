@@ -1,0 +1,43 @@
+package coroutines
+
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.LifecycleObserver
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.OnLifecycleEvent
+import android.util.Log
+import kotlinx.coroutines.*
+
+
+private var job: Job? = null;
+
+inline fun <reified T> T.logd(message: () -> String) = Log.d(T::class.simpleName, message())
+
+inline fun <reified T> T.loge(error: Throwable, message: () -> String) = Log.d(T::class.simpleName, message(), error)
+
+internal class CoroutineLifecycleListener(private val deferred: Deferred<*>) : LifecycleObserver {
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    fun cancelCoroutine() {
+        if (!deferred.isCancelled) {
+            deferred.cancel()
+        }
+    }
+}
+
+fun <T> LifecycleOwner.io(loader: suspend () -> T): Deferred<T> {
+    val deferred = GlobalScope.async(Dispatchers.IO, start = CoroutineStart.LAZY) {
+        loader()
+    }
+    lifecycle.addObserver(CoroutineLifecycleListener(deferred))
+    return deferred
+}
+
+infix fun <T> Deferred<T>.main(block: suspend (T) -> Unit): Job {
+    return GlobalScope.launch(Dispatchers.Main) {
+        try {
+            block(this@main.await())
+        } catch (e: Exception) {
+            loge(e) { "Exception in then()!" }
+            throw e
+        }
+    }
+}
