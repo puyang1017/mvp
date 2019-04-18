@@ -60,8 +60,6 @@ dependencies {
     implementation rootProject.ext.dependencies["facebookrebound"]
     implementation files('libs/commons-codec-1.11.jar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.0'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.0'
 }
 repositories {
     mavenCentral()
