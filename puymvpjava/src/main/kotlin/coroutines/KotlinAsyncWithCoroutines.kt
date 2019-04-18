@@ -23,7 +23,7 @@ internal class CoroutineLifecycleListener(private val deferred: Deferred<*>) : L
     }
 }
 
-fun <T> LifecycleOwner.io(loader: suspend () -> T): Deferred<T> {
+fun <T> LifecycleOwner.loadAsync(loader: suspend () -> T): Deferred<T> {
     val deferred = GlobalScope.async(Dispatchers.IO, start = CoroutineStart.LAZY) {
         loader()
     }
@@ -31,12 +31,12 @@ fun <T> LifecycleOwner.io(loader: suspend () -> T): Deferred<T> {
     return deferred
 }
 
-infix fun <T> Deferred<T>.main(block: suspend (T) -> Unit): Job {
+infix fun <T> Deferred<T>.ui(block: suspend (T) -> Unit): Job {
     return GlobalScope.launch(Dispatchers.Main) {
         try {
-            block(this@main.await())
+            block(this@ui.await())
         } catch (e: Exception) {
-            loge(e) { "Exception in then()!" }
+            loge(e) { "Exception in ui()!" }
             throw e
         }
     }
