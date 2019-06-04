@@ -62,6 +62,16 @@
 
 -keep class com.android.puy.puymvpjava.** {*;}
 
+-keep class com.umeng.** {*;}
+
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
 -dontshrink
 -dontoptimize
 -dontwarn com.google.android.maps.**
