@@ -59,8 +59,8 @@ dependencies {
     implementation rootProject.ext.dependencies["fragmentation"]
     implementation rootProject.ext.dependencies["facebookrebound"]
     implementation files('libs/commons-codec-1.11.jar')
-//    api files('libs/umeng-analytics-8.0.2.jar')
-//    api files('libs/umeng-common-2.0.2.jar')
+    api files('libs/umeng-analytics-8.0.2.jar')
+    api files('libs/umeng-common-2.0.2.jar')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
 repositories {
