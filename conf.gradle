@@ -23,8 +23,8 @@ ext {
             "percent"                    : "com.android.support:percent:${android["VSupportSdk"]}",
             "constraint-layout"          : 'com.android.support.constraint:constraint-layout:1.0.2',
 
-            "butterknife"                : "com.jakewharton:butterknife:8.4.0",
-            "butterknife-apt"            : "com.jakewharton:butterknife-compiler:8.4.0",
+            "butterknife"                : "com.jakewharton:butterknife:10.1.0",
+            "butterknife-apt"            : "com.jakewharton:butterknife-compiler:10.1.0",
             "eventbus"                   : "org.greenrobot:eventbus:3.0.0",
             "glide"                      : "com.github.bumptech.glide:glide:3.7.0",
             "picasso"                    : "com.squareup.picasso:picasso:2.5.2",

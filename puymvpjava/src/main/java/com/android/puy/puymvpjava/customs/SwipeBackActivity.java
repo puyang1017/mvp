@@ -1,8 +1,8 @@
 package com.android.puy.puymvpjava.customs;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
 import me.imid.swipebacklayout.lib.Utils;
 
 public class SwipeBackActivity extends AppCompatActivity implements SwipeBackActivityBase {

@@ -2,9 +2,9 @@ package com.android.puy.puymvpjava.mvp;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.View;
+import androidx.annotation.Nullable;
 import butterknife.Unbinder;
 import com.android.puy.puymvpjava.XDroidConf;
 import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
