@@ -12,7 +12,7 @@ import com.android.puy.puymvpjava.event.BusProvider;
 import com.android.puy.puymvpjava.kit.KnifeKit;
 import com.gyf.barlibrary.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
 import com.umeng.analytics.MobclickAgent;
 import org.greenrobot.eventbus.EventBus;
 
