@@ -42,7 +42,7 @@ ext {
             "rxlifecycle"                : "com.trello.rxlifecycle3:rxlifecycle:${android["VRxlifecycle"]}",
             "rxlifecycle-android"        : "com.trello.rxlifecycle3:rxlifecycle-android:${android["VRxlifecycle"]}",
             "rxlifecycle-components"     : "com.trello.rxlifecycle3:rxlifecycle-components:${android["VRxlifecycle"]}",
-            "rxpermissions"              : "com.tbruyelle.rxpermissions2:rxpermissions:0.9.3@aar",
+            "rxpermissions"              : "com.github.tbruyelle:rxpermissions:0.10.2",
 
             "canary-debug"               : "com.squareup.leakcanary:leakcanary-android:1.4-beta2",
             "canary-release"             : "com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2",
