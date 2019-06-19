@@ -44,4 +44,11 @@ public interface IMqttStatusListener {
      * @param serverURI 链接服务器地址
      */
     void connectComplete(boolean reconnect, String serverURI);
+
+    /**
+     * 链接丢失
+     *
+     * @param cause 丢失原因
+     */
+    void connectLost(Throwable cause);
 }

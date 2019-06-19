@@ -77,11 +77,6 @@ public class MqttV3 {
 
                 @Override
                 public void connectComplete(boolean reconnect, String serverURI) {
-//                    if (reconnect) {
-////                        System.out.println("重连到: " + serverURI);
-//                    } else {
-////                        System.out.println("链接到: " + serverURI);
-//                    }
                     if (mIMqttStatusListener != null) {
                         mIMqttStatusListener.connectComplete(reconnect, serverURI);
                     }
@@ -89,18 +84,20 @@ public class MqttV3 {
 
                 @Override
                 public void connectionLost(Throwable cause) {
-                    //连接丢失后，一般在这里面进行重连
-//                    subscribe();
+                    //连接丢失后
+                    if (mIMqttStatusListener != null) {
+                        mIMqttStatusListener.connectLost(cause);
+                    }
                 }
 
                 @Override
                 public void messageArrived(String topic, MqttMessage message) throws Exception {
-                    // subscribe后得到的消息会执行到这里面
+                    // subscribe后得到的消息会执行到这里面  暂时可以不使用
                 }
 
                 @Override
                 public void deliveryComplete(IMqttDeliveryToken token) {
-                    // publish后会执行到这里
+                    // publish后会执行到这里 暂时可以不使用
                 }
             });
             mqttClient.connect(mMqttConnectOptions, this.userContext, new IMqttActionListener() {
@@ -158,6 +155,7 @@ public class MqttV3 {
 
     /**
      * 订阅消息
+     *
      * @param topic
      */
     public void subscribe(String topic) {
@@ -171,10 +169,11 @@ public class MqttV3 {
 
     /**
      * 订阅消息
-     * @param topic topic
+     *
+     * @param topic        topic
      * @param subscribeQos 类型
      */
-    public void subscribe(String topic,int subscribeQos) {
+    public void subscribe(String topic, int subscribeQos) {
         try {
             mqttClient.subscribe(topic, subscribeQos, this.userContext,
                     iMqttActionListener, iMqttMessageListener);
@@ -185,10 +184,11 @@ public class MqttV3 {
 
     /**
      * 订阅消息
+     *
      * @param topics 多个topic
      */
     public void subscribe(List<String> topics) {
-        if(topics == null || topics.size()<=0){
+        if (topics == null || topics.size() <= 0) {
             return;
         }
         try {
@@ -208,11 +208,12 @@ public class MqttV3 {
 
     /**
      * 订阅消息
-     * @param topics 多个topic
+     *
+     * @param topics       多个topic
      * @param subscribeQos 类型
      */
-    public void subscribe(List<String> topics,int subscribeQos) {
-        if(topics == null || topics.size()<=0){
+    public void subscribe(List<String> topics, int subscribeQos) {
+        if (topics == null || topics.size() <= 0) {
             return;
         }
         try {
@@ -239,7 +240,7 @@ public class MqttV3 {
         @Override
         public void messageArrived(String topic, MqttMessage mqttMessage) throws Exception {
             if (MqttV3.this.mIReceiveActionListener != null) {
-                MqttV3.this.mIReceiveActionListener.receiveMsg(topic,mqttMessage.toString());
+                MqttV3.this.mIReceiveActionListener.receiveMsg(topic, mqttMessage.toString());
             }
         }
     };
@@ -285,11 +286,12 @@ public class MqttV3 {
 
     /**
      * 发送消息
-     * @param topic  topic
-     * @param msg 发送的内容
+     *
+     * @param topic                  topic
+     * @param msg                    发送的内容
      * @param iPublishActionListener 回调
      */
-    public void publishMsg(String topic,String msg, IPublishActionListener iPublishActionListener) {
+    public void publishMsg(String topic, String msg, IPublishActionListener iPublishActionListener) {
         try {
             //retained:设置发送完消息后是否还保留 与cleanSession差不多
             if (mqttClient.isConnected()) {
@@ -304,13 +306,14 @@ public class MqttV3 {
 
     /**
      * 发送消息
-     * @param topic topic
-     * @param qos 发送类型
-     * @param retained 是在服务器否保存消息
-     * @param msg 发送的内容
+     *
+     * @param topic                  topic
+     * @param qos                    发送类型
+     * @param retained               是在服务器否保存消息
+     * @param msg                    发送的内容
      * @param iPublishActionListener 回调
      */
-    public void publishMsg(String topic,int qos,boolean retained,String msg, IPublishActionListener iPublishActionListener) {
+    public void publishMsg(String topic, int qos, boolean retained, String msg, IPublishActionListener iPublishActionListener) {
         try {
             //retained:设置发送完消息后是否还保留 与cleanSession差不多
             if (mqttClient.isConnected()) {
@@ -325,13 +328,14 @@ public class MqttV3 {
 
     /**
      * 发送消息
-     * @param topic topic
-     * @param qos 发送类型
-     * @param retained 是在服务器否保存消息
-     * @param msg 发送的内容
+     *
+     * @param topic                  topic
+     * @param qos                    发送类型
+     * @param retained               是在服务器否保存消息
+     * @param msg                    发送的内容
      * @param iPublishActionListener 回调
      */
-    public void publishMsg(String topic,int qos,boolean retained,byte[] msg, IPublishActionListener iPublishActionListener) {
+    public void publishMsg(String topic, int qos, boolean retained, byte[] msg, IPublishActionListener iPublishActionListener) {
         try {
             //retained:设置发送完消息后是否还保留 与cleanSession差不多
             if (mqttClient.isConnected()) {
@@ -528,9 +532,9 @@ public class MqttV3 {
          */
         public Builder setPassword(String secretKey) {
             try {
-                if(this.isAlibabaCloud){
+                if (this.isAlibabaCloud) {
                     this.password = macSignature(clientId.split("@@@")[0], secretKey);
-                }else {
+                } else {
                     this.password = secretKey;
                 }
                 System.out.println(this.password);
