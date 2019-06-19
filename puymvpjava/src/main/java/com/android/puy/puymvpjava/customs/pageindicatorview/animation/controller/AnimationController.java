@@ -1,6 +1,6 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller;
 
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.AnimationType;
 import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.BaseAnimation;
 import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;

@@ -2,8 +2,9 @@ package com.android.puy.puymvpjava.customs.pageindicatorview.animation.type;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.ValueController;
 
 public abstract class BaseAnimation<T extends Animator> {

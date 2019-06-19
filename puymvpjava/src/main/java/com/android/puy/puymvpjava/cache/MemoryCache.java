@@ -1,7 +1,7 @@
 package com.android.puy.puymvpjava.cache;
 
-import android.support.v4.util.LruCache;
 import android.text.TextUtils;
+import androidx.collection.LruCache;
 
 
 public class MemoryCache implements ICache {

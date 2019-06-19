@@ -1,8 +1,8 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview.animation.type;
 
 import android.animation.ValueAnimator;
-import android.support.annotation.NonNull;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import androidx.annotation.NonNull;
 import com.android.puy.puymvpjava.customs.pageindicatorview.animation.controller.ValueController;
 import com.android.puy.puymvpjava.customs.pageindicatorview.animation.data.type.ThinWormAnimationValue;
 

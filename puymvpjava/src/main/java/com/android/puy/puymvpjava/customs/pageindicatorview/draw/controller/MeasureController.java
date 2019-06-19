@@ -1,8 +1,8 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview.draw.controller;
 
-import android.support.annotation.NonNull;
 import android.util.Pair;
 import android.view.View;
+import androidx.annotation.NonNull;
 import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.AnimationType;
 import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
 import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Orientation;

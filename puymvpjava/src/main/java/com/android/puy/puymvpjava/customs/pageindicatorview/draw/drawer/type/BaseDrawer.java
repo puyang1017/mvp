@@ -1,7 +1,7 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview.draw.drawer.type;
 
 import android.graphics.Paint;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
 
 class BaseDrawer {

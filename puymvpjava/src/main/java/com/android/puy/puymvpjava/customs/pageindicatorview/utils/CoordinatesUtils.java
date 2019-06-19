@@ -1,8 +1,8 @@
 package com.android.puy.puymvpjava.customs.pageindicatorview.utils;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Pair;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.android.puy.puymvpjava.customs.pageindicatorview.animation.type.AnimationType;
 import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Indicator;
 import com.android.puy.puymvpjava.customs.pageindicatorview.draw.data.Orientation;

@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.*;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IdRes;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -13,6 +11,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import androidx.annotation.ColorInt;
+import androidx.annotation.IdRes;
 
 /**
  * 参考了https://github.com/laxian/GuideView  现在性能和功能完爆它
