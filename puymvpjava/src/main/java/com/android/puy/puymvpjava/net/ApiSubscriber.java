@@ -43,6 +43,7 @@ public abstract class ApiSubscriber<T extends IModel> extends ResourceSubscriber
 
             if (e instanceof HttpException) {
                 error.setHttpType(((HttpException) e).code());
+                error.setResponse(((HttpException) e).response());
             }
             onFail(error);
         }

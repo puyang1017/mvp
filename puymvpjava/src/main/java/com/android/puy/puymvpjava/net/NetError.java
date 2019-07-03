@@ -1,10 +1,13 @@
 package com.android.puy.puymvpjava.net;
 
 
+import retrofit2.Response;
+
 public class NetError extends Exception {
     private Throwable exception;
     private int type = NoConnectError;
     private int httpType = 200;
+    private Response<?> response;
 
     public static final int ParseError = 2650;   //数据解析异常
     public static final int NoConnectError = 2651;   //无连接异常
@@ -48,12 +51,21 @@ public class NetError extends Exception {
         this.httpType = httpType;
     }
 
+    public Response<?> getResponse() {
+        return response;
+    }
+
+    public void setResponse(Response<?> response) {
+        this.response = response;
+    }
+
     @Override
     public String toString() {
         return "NetError{" +
                 "exception=" + exception +
                 ", type=" + type +
                 ", httpType=" + httpType +
+                ", response=" + response +
                 '}';
     }
 }
