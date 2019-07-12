@@ -3,9 +3,11 @@ package com.android.puy.puymvpjava.net;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import io.reactivex.subscribers.ResourceSubscriber;
+import okhttp3.OkHttpClient;
 import org.json.JSONException;
 import retrofit2.HttpException;
 
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 
@@ -24,6 +26,11 @@ public abstract class ApiSubscriber<T extends IModel> extends ResourceSubscriber
                         || e instanceof JsonSyntaxException) {
                     error = new NetError(e, NetError.ParseError);
                 } else {
+                    if (e instanceof SocketTimeoutException) {
+                        for (OkHttpClient client : XApi.getInstance().getClientMap().values()) {
+                            client.connectionPool().evictAll();
+                        }
+                    }
                     if (e instanceof HttpException) {
                         error = new NetError(e, NetError.HttpError, ((HttpException) e).code());
                     } else {
