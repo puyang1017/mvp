@@ -3,11 +3,9 @@ package com.android.puy.puymvpjava.net;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import io.reactivex.subscribers.ResourceSubscriber;
-import okhttp3.OkHttpClient;
 import org.json.JSONException;
 import retrofit2.HttpException;
 
-import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 
