@@ -6,7 +6,7 @@ import retrofit2.Response;
 public class NetError extends Exception {
     private Throwable exception;
     private int type = NoConnectError;
-    private int httpType = 200;
+    private int httpType = 2656;
     private Response<?> response;
 
     public static final int ParseError = 2650;   //数据解析异常
