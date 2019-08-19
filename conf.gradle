@@ -52,11 +52,11 @@ ext {
             "jcore"                      : 'cn.jiguang.sdk:jcore:1.1.9',
             //信鸽jar
             "xinge"                      : 'com.tencent.xinge:xinge:3.2.6-release',
-            "xingehw"                    :'com.tencent.xinge:xghw:3.2.6-release',
-            "xingemipush"                :'com.tencent.xinge:mipush:3.2.6-release',
-            "xingemz"                     :'com.tencent.xinge:xgmz:3.2.6-release',
+            "xingehw"                    : 'com.tencent.xinge:xghw:3.2.6-release',
+            "xingemipush"                : 'com.tencent.xinge:mipush:3.2.6-release',
+            "xingemz"                    : 'com.tencent.xinge:xgmz:3.2.6-release',
             //jg包
-            "xingejg"                    :'com.tencent.jg:jg:1.1',
+            "xingejg"                    : 'com.tencent.jg:jg:1.1',
             //wup包
             "xingewup"                   : 'com.tencent.wup:wup:1.0.0.E-release',
             //mid包
@@ -75,19 +75,19 @@ ext {
 //            "umeng-share-sina"           : 'com.umeng.sdk:share-sina:6.9.4',
             "logger"                     : 'com.orhanobut:logger:2.2.0',
             "walle"                      : 'com.meituan.android.walle:library:1.1.6',
-            "mdprogress"                :'com.jaywei:mdprogress:1.0.2',
-            "dialogs"                   :'com.afollestad.material-dialogs:core:0.9.6.0',
-            "reactivenetwork"           :'com.github.pwittchen:reactivenetwork-rx2:2.1.0',
-            "gif"                       : 'pl.droidsonroids.gif:android-gif-drawable:1.2.16',
-            "switchbutton"              :'com.github.zcweng:switch-button:0.0.3@aar',
-            "tablayout"                 : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
-            "filedownloader"            :'com.liulishuo.filedownloader:library:1.7.6-SNAPSHOT',
-            "dynamicAnimation"          :'com.android.support:support-dynamic-animation:25.3.1',
-            "scalablevideoview"         :'com.yqritc:android-scalablevideoview:1.0.4',
-            "mqttv3"                    :'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0',
-            "SmartRefreshLayout"        :'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18',
-            "fragmentation"             :'me.yokeyword:fragmentation:1.3.6',
-            "facebookrebound"            :'com.facebook.rebound:rebound:0.3.8',
+            "mdprogress"                 : 'com.jaywei:mdprogress:1.0.2',
+            "dialogs"                    : 'com.afollestad.material-dialogs:core:0.9.6.0',
+            "reactivenetwork"            : 'com.github.pwittchen:reactivenetwork-rx2:2.1.0',
+            "gif"                        : 'pl.droidsonroids.gif:android-gif-drawable:1.2.16',
+            "switchbutton"               : 'com.github.zcweng:switch-button:0.0.3@aar',
+            "tablayout"                  : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
+            "filedownloader"             : 'com.liulishuo.filedownloader:library:1.7.6-SNAPSHOT',
+            "dynamicAnimation"           : 'com.android.support:support-dynamic-animation:25.3.1',
+            "scalablevideoview"          : 'com.yqritc:android-scalablevideoview:1.0.4',
+            "mqttv3"                     : 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0',
+            "SmartRefreshLayout"         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18',
+            "fragmentation"              : 'me.yokeyword:fragmentation:1.3.7',
+            "facebookrebound"            : 'com.facebook.rebound:rebound:0.3.8',
     ]
 
 }
