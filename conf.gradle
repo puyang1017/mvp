@@ -86,7 +86,7 @@ ext {
             "scalablevideoview"          : 'com.yqritc:android-scalablevideoview:1.0.4',
             "mqttv3"                     : 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0',
             "SmartRefreshLayout"         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18',
-            "fragmentation"              : 'com.github.puyang1017:Fragmentation:1.3.8',
+            "fragmentation"              : 'com.github.puyang1017:Fragmentation:2.0.0',
             "facebookrebound"            : 'com.facebook.rebound:rebound:0.3.8',
     ]
 
