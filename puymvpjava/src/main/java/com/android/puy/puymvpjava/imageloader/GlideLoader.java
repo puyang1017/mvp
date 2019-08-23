@@ -158,7 +158,6 @@ public class GlideLoader implements ILoader {
 
         wrapScaleType(request, options)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .crossFade()
                 .into(target);
     }
 
