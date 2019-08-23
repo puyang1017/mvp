@@ -14,6 +14,8 @@ public interface ILoader {
 
     void loadNet(ImageView target, String url, Options options);
 
+    void loadNet(ImageView target, String url, Options options, boolean anim);
+
     void loadNet(ImageView target, String url, Options options, NetLoadCallback netLoadCallback);
 
     void loadNet(Context context, String url, Options options, LoadCallback callback);

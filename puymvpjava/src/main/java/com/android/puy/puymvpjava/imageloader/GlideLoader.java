@@ -30,6 +30,15 @@ public class GlideLoader implements ILoader {
     }
 
     @Override
+    public void loadNet(ImageView target, String url, Options options, boolean anim) {
+        if (anim) {
+            load(getRequestManager(target.getContext()).load(url), target, options);
+        } else {
+            loadNoAnim(getRequestManager(target.getContext()).load(url), target, options);
+        }
+    }
+
+    @Override
     public void loadNet(ImageView target, String url, Options options, NetLoadCallback netLoadCallback) {
         load(getRequestManager(target.getContext()).load(url), target, options, netLoadCallback);
     }
@@ -124,6 +133,23 @@ public class GlideLoader implements ILoader {
 
         if (options.loadingResId != Options.RES_NONE) {
             request.placeholder(options.loadingResId);
+        }
+
+        if (options.loadErrorResId != Options.RES_NONE) {
+            request.error(options.loadErrorResId);
+        }
+
+        wrapScaleType(request, options)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .crossFade()
+                .into(target);
+    }
+
+    private void loadNoAnim(DrawableTypeRequest request, ImageView target, Options options) {
+        if (options == null) options = Options.defaultOptions();
+
+        if (options.loadingResId != Options.RES_NONE) {
+            request.placeholder(options.loadingResId).dontAnimate();
         }
 
         if (options.loadErrorResId != Options.RES_NONE) {
