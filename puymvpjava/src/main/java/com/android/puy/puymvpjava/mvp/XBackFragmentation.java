@@ -44,7 +44,7 @@ public abstract class XBackFragmentation<P extends IPresent> extends SwipeBackFr
                 viewGroup.removeView(rootView);
             }
         }
-        return rootView;
+        return attachToSwipeBack(rootView);
     }
 
 
