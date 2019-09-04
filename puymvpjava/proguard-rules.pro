@@ -163,6 +163,9 @@
 -keep class com.android.dingtalk.share.ddsharemodule.** { *; }
 -keepattributes Signature
 
+ -keep class com.gyf.immersionbar.* {*;}
+ -dontwarn com.gyf.immersionbar.**
+
 
 
 

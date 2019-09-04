@@ -11,7 +11,7 @@ import com.android.puy.puymvpjava.customs.SwipeBackActivity;
 import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
 import com.android.puy.puymvpjava.event.BusProvider;
 import com.android.puy.puymvpjava.kit.KnifeKit;
-import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.immersionbar.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.umeng.analytics.MobclickAgent;
 import org.greenrobot.eventbus.EventBus;
@@ -109,9 +109,9 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
             getP().detachV();
         }
         getvDelegate().destory();
-        if (mImmersionBar != null){
-            mImmersionBar.destroy();
-        }
+//        if (mImmersionBar != null){
+//            mImmersionBar.destroy();
+//        }
         p = null;
         vDelegate = null;
         mImmersionBar = null;

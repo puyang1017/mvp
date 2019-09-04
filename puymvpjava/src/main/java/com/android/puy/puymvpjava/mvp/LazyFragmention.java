@@ -10,14 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import androidx.fragment.app.Fragment;
-import com.gyf.barlibrary.ImmersionOwner;
-import com.gyf.barlibrary.ImmersionProxy;
 import me.yokeyword.fragmentation.SupportFragment;
 
 import java.lang.reflect.Field;
 
 
-public class LazyFragmention extends SupportFragment implements ImmersionOwner {
+public class LazyFragmention extends SupportFragment{
     protected LayoutInflater layoutInflater;
     protected Activity context;
 
@@ -38,15 +36,10 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
 
     private static final String TAG_ROOT_FRAMELAYOUT = "tag_root_framelayout";
 
-    /**
-     * ImmersionBar代理类
-     */
-    private ImmersionProxy mImmersionProxy = new ImmersionProxy(this);
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mImmersionProxy.onActivityCreated(savedInstanceState);
         this.layoutInflater = inflater;
         this.container = container;
         onCreateView(savedInstanceState);
@@ -57,7 +50,6 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
     }
 
     private void onCreateView(Bundle savedInstanceState) {
-        mImmersionProxy.onCreate(savedInstanceState);
         this.saveInstanceState = savedInstanceState;
         boolean isVisible;
         if (isVisibleToUserState == STATE_NO_SET) {
@@ -137,7 +129,6 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        mImmersionProxy.setUserVisibleHint(isVisibleToUser);
         isVisibleToUserState = isVisibleToUser ? STATE_VISIBLE : STATE_NO_VISIBLE;
         if (isVisibleToUser
                 && !isInitReady
@@ -161,7 +152,6 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
     @Override
     public void onResume() {
         super.onResume();
-        mImmersionProxy.onResume();
         if (isInitReady) {
             onResumeLazy();
         }
@@ -170,7 +160,6 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
     @Override
     public void onPause() {
         super.onPause();
-        mImmersionProxy.onPause();
         if (isInitReady) {
             onPauseLazy();
         }
@@ -179,19 +168,16 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mImmersionProxy.onDestroy();
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        mImmersionProxy.onHiddenChanged(hidden);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mImmersionProxy.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -282,35 +268,5 @@ public class LazyFragmention extends SupportFragment implements ImmersionOwner {
 
     protected void onDestoryLazy() {
 
-    }
-
-    @Override
-    public void onLazyBeforeView() {
-
-    }
-
-    @Override
-    public void onLazyAfterView() {
-
-    }
-
-    @Override
-    public void onVisible() {
-
-    }
-
-    @Override
-    public void onInvisible() {
-
-    }
-
-    @Override
-    public void initImmersionBar() {
-
-    }
-
-    @Override
-    public boolean immersionBarEnabled() {
-        return false;
     }
 }
