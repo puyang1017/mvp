@@ -15,7 +15,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 import java.lang.reflect.Field;
 
 
-public class LazyFragmention extends SupportFragment{
+public class LazyFragmention extends SupportFragment {
     protected LayoutInflater layoutInflater;
     protected Activity context;
 
@@ -27,7 +27,6 @@ public class LazyFragmention extends SupportFragment{
     private Bundle saveInstanceState;
     private boolean isLazyEnable = true;
     private boolean isStart = false;
-    private boolean isKotlinInitData = false;
     private FrameLayout layout;
 
     private static final int STATE_VISIBLE = 1; //用户可见
@@ -135,17 +134,16 @@ public class LazyFragmention extends SupportFragment{
                 && getRootView() != null) {
             isInitReady = true;
             onCreateViewLazy(saveInstanceState);
+            onResumeLazy();
         }
         if (isInitReady && getRootView() != null) {
             if (isVisibleToUser) {
                 isStart = true;
+                onStartLazy();
             } else {
                 isStart = false;
+                onStopLazy();
             }
-        }
-        if (getUserVisibleHint() && !isKotlinInitData) {
-            onKotlinInitData();
-            isKotlinInitData = true;
         }
     }
 
@@ -163,21 +161,6 @@ public class LazyFragmention extends SupportFragment{
         if (isInitReady) {
             onPauseLazy();
         }
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -243,10 +226,6 @@ public class LazyFragmention extends SupportFragment{
     }
 
     protected void onCreateViewLazy(Bundle savedInstanceState) {
-
-    }
-
-    protected void onKotlinInitData() {
 
     }
 
