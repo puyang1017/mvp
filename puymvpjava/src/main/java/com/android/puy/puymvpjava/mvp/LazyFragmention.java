@@ -126,9 +126,14 @@ public class LazyFragmention extends SupportFragment {
     }
 
     @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+    }
+
+    @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        isVisibleToUserState = getUserVisibleHint() ? STATE_VISIBLE : STATE_NO_VISIBLE;
+        isVisibleToUserState = isVisibleToUser ? STATE_VISIBLE : STATE_NO_VISIBLE;
         if (isVisibleToUser
                 && !isInitReady
                 && getRootView() != null) {
