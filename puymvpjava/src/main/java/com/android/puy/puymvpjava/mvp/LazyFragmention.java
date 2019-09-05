@@ -128,7 +128,7 @@ public class LazyFragmention extends SupportFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        isVisibleToUserState = isVisibleToUser ? STATE_VISIBLE : STATE_NO_VISIBLE;
+        isVisibleToUserState = getUserVisibleHint() ? STATE_VISIBLE : STATE_NO_VISIBLE;
         if (isVisibleToUser
                 && !isInitReady
                 && getRootView() != null) {
@@ -247,5 +247,9 @@ public class LazyFragmention extends SupportFragment {
 
     protected void onDestoryLazy() {
 
+    }
+
+    public boolean isInitReady() {
+        return isInitReady;
     }
 }
