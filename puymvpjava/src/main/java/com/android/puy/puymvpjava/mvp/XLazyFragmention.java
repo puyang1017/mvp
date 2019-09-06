@@ -12,7 +12,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import org.greenrobot.eventbus.EventBus;
 
-
+//尽用于FragmentPagerAdapter 非第一个页面中
 public abstract class XLazyFragmention<P extends IPresent> extends LazyFragmention implements IView<P> {
     protected ImmersionBar mImmersionBar;
     private VDelegate vDelegate;
