@@ -18,5 +18,4 @@ class MainActivity : XFragmentationActivity<Pmain>(), IVmain {
         list.add(PageTwo())
         ViewPager.adapter = Fragment_pager(supportFragmentManager, list)
     }
-
 }

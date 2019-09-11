@@ -6,7 +6,7 @@ import com.android.puy.puymvpjava.imageloader.ILFactory;
 /**
  * Created by puy on 2019/8/23 13:06
  */
-public class  App extends Application {
+public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
