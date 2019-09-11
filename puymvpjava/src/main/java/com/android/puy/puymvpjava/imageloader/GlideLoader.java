@@ -1,19 +1,25 @@
 package com.android.puy.puymvpjava.imageloader;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.bumptech.glide.DrawableTypeRequest;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.io.File;
 
@@ -54,87 +60,96 @@ public class GlideLoader implements ILoader {
         }
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void loadNet(Context context, String url, Options options, final LoadCallback callback) {
-        DrawableTypeRequest request = getRequestManager(context).load(url);
+        RequestBuilder<Drawable> requestBuilder = getRequestManager(context).load(url);
         if (options == null) options = Options.defaultOptions();
 
+        RequestOptions requestOptions = new RequestOptions();
         if (options.loadingResId != Options.RES_NONE) {
-            request.placeholder(options.loadingResId);
+            requestOptions.placeholder(options.loadingResId);
         }
 
         if (options.loadErrorResId != Options.RES_NONE) {
-            request.error(options.loadErrorResId);
+            requestOptions.error(options.loadErrorResId);
         }
 
-        wrapScaleType(request, options)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .crossFade()
-                .into(new SimpleTarget<GlideBitmapDrawable>() {
-
+        DrawableTransitionOptions transitionOptions = new DrawableTransitionOptions()
+                .crossFade();
+        wrapScaleType(requestBuilder, options)
+                .apply(requestOptions)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .transition(transitionOptions)
+                .into(new CustomTarget<Drawable>() {
                     @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        super.onLoadFailed(errorDrawable);
                         if (callback != null) {
-                            callback.onLoadFailed(e);
+                            callback.onLoadFailed(errorDrawable);
                         }
                     }
 
                     @Override
-                    public void onResourceReady(GlideBitmapDrawable resource, GlideAnimation<? super GlideBitmapDrawable> glideAnimation) {
-                        if (resource != null && resource.getBitmap() != null) {
-                            if (callback != null) {
-                                callback.onLoadReady(resource.getBitmap());
-                            }
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        if (callback != null) {
+                            callback.onLoadReady(resource);
                         }
                     }
 
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                    }
                 });
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void loadNet(Context context, String url, Options options, LoadCallback callback, boolean anim) {
-        DrawableTypeRequest request = getRequestManager(context).load(url);
+        RequestBuilder<Drawable> requestBuilder = getRequestManager(context).load(url);
         if (options == null) options = Options.defaultOptions();
 
+        RequestOptions requestOptions = new RequestOptions();
         if (options.loadingResId != Options.RES_NONE) {
             if (anim) {
-                request.placeholder(options.loadingResId);
+                requestOptions.placeholder(options.loadingResId);
             } else {
-                request.placeholder(options.loadingResId).dontAnimate();
+                requestOptions.placeholder(options.loadingResId).dontAnimate();
             }
         }
 
         if (options.loadErrorResId != Options.RES_NONE) {
-            request.error(options.loadErrorResId);
+            requestOptions.error(options.loadErrorResId);
         }
 
-        DrawableRequestBuilder drawableRequestBuilder = wrapScaleType(request, options)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE);
+        RequestBuilder<Drawable> drawableRequestBuilder = wrapScaleType(requestBuilder, options)
+                .apply(requestOptions)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
 
         if (anim) {
-            drawableRequestBuilder.crossFade();
+            drawableRequestBuilder.transition(new DrawableTransitionOptions().crossFade());
         }
-        
-        drawableRequestBuilder.into(new SimpleTarget<GlideBitmapDrawable>() {
-
+        drawableRequestBuilder.into(new CustomTarget<Drawable>() {
             @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                super.onLoadFailed(e, errorDrawable);
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                super.onLoadFailed(errorDrawable);
                 if (callback != null) {
-                    callback.onLoadFailed(e);
+                    callback.onLoadFailed(errorDrawable);
                 }
             }
 
             @Override
-            public void onResourceReady(GlideBitmapDrawable resource, GlideAnimation<? super GlideBitmapDrawable> glideAnimation) {
-                if (resource != null && resource.getBitmap() != null) {
-                    if (callback != null) {
-                        callback.onLoadReady(resource.getBitmap());
-                    }
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                if (callback != null) {
+                    callback.onLoadReady(resource);
                 }
             }
 
+            @Override
+            public void onLoadCleared(@Nullable Drawable placeholder) {
+
+            }
         });
     }
 
@@ -185,62 +200,70 @@ public class GlideLoader implements ILoader {
         return Glide.with(context);
     }
 
-    private void load(DrawableTypeRequest request, ImageView target, Options options) {
+    @SuppressLint("CheckResult")
+    private void load(RequestBuilder<Drawable> request, ImageView target, Options options) {
         if (options == null) options = Options.defaultOptions();
 
+        RequestOptions requestOptions = new RequestOptions();
         if (options.loadingResId != Options.RES_NONE) {
-            request.placeholder(options.loadingResId);
+            requestOptions.placeholder(options.loadingResId);
         }
 
         if (options.loadErrorResId != Options.RES_NONE) {
-            request.error(options.loadErrorResId);
+            requestOptions.error(options.loadErrorResId);
         }
-
         wrapScaleType(request, options)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .crossFade()
+                .apply(requestOptions)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .transition(new DrawableTransitionOptions().crossFade())
                 .into(target);
     }
 
-    private void loadNoAnim(DrawableTypeRequest request, ImageView target, Options options) {
+    @SuppressLint("CheckResult")
+    private void loadNoAnim(RequestBuilder<Drawable> request, ImageView target, Options options) {
         if (options == null) options = Options.defaultOptions();
 
+        RequestOptions requestOptions = new RequestOptions();
         if (options.loadingResId != Options.RES_NONE) {
-            request.placeholder(options.loadingResId).dontAnimate();
+            requestOptions.placeholder(options.loadingResId).dontAnimate();
         }
 
         if (options.loadErrorResId != Options.RES_NONE) {
-            request.error(options.loadErrorResId);
+            requestOptions.error(options.loadErrorResId);
         }
 
         wrapScaleType(request, options)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .apply(requestOptions)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .into(target);
     }
 
-    private void load(DrawableTypeRequest request, ImageView target, Options options, final NetLoadCallback netLoadCallback) {
+    @SuppressLint("CheckResult")
+    private void load(RequestBuilder<Drawable> request, ImageView target, Options options, final NetLoadCallback netLoadCallback) {
         if (options == null) options = Options.defaultOptions();
 
+        RequestOptions requestOptions = new RequestOptions();
         if (options.loadingResId != Options.RES_NONE) {
-            request.placeholder(options.loadingResId);
+            requestOptions.placeholder(options.loadingResId);
         }
 
         if (options.loadErrorResId != Options.RES_NONE) {
-            request.error(options.loadErrorResId);
+            requestOptions.error(options.loadErrorResId);
         }
 
         wrapScaleType(request, options)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .crossFade()
-                .listener(new RequestListener() {
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .apply(requestOptions)
+                .transition(new DrawableTransitionOptions().crossFade())
+                .addListener(new RequestListener<Drawable>() {
                     @Override
-                    public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         netLoadCallback.onLoadReady(false);
                         return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         netLoadCallback.onLoadReady(true);
                         return false;
                     }
@@ -248,28 +271,31 @@ public class GlideLoader implements ILoader {
                 .into(target);
     }
 
-    private void loadNoAnim(DrawableTypeRequest request, ImageView target, Options options, final NetLoadCallback netLoadCallback) {
+    @SuppressLint("CheckResult")
+    private void loadNoAnim(RequestBuilder<Drawable> request, ImageView target, Options options, final NetLoadCallback netLoadCallback) {
         if (options == null) options = Options.defaultOptions();
 
+        RequestOptions requestOptions = new RequestOptions();
         if (options.loadingResId != Options.RES_NONE) {
-            request.placeholder(options.loadingResId).dontAnimate();
+            requestOptions.placeholder(options.loadingResId).dontAnimate();
         }
 
         if (options.loadErrorResId != Options.RES_NONE) {
-            request.error(options.loadErrorResId);
+            requestOptions.error(options.loadErrorResId);
         }
 
         wrapScaleType(request, options)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .listener(new RequestListener() {
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .apply(requestOptions)
+                .addListener(new RequestListener<Drawable>() {
                     @Override
-                    public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
                         netLoadCallback.onLoadReady(false);
                         return false;
                     }
 
                     @Override
-                    public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
                         netLoadCallback.onLoadReady(true);
                         return false;
                     }
@@ -277,31 +303,33 @@ public class GlideLoader implements ILoader {
                 .into(target);
     }
 
-    private void load(DrawableTypeRequest request, ImageView target, Options options, boolean cache) {
+    @SuppressLint("CheckResult")
+    private void load(RequestBuilder<Drawable> request, ImageView target, Options options, boolean cache) {
         if (options == null) options = Options.defaultOptions();
 
+        RequestOptions requestOptions = new RequestOptions();
         if (options.loadingResId != Options.RES_NONE) {
-            request.placeholder(options.loadingResId);
+            requestOptions.placeholder(options.loadingResId);
         }
 
         if (options.loadErrorResId != Options.RES_NONE) {
-            request.error(options.loadErrorResId);
+            requestOptions.error(options.loadErrorResId);
         }
         if (cache) {
             wrapScaleType(request, options)
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .crossFade()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .transition(new DrawableTransitionOptions().crossFade())
                     .into(target);
         } else {
             wrapScaleType(request, options)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .crossFade()
+                    .transition(new DrawableTransitionOptions().crossFade())
                     .into(target);
         }
 
     }
 
-    private DrawableTypeRequest wrapScaleType(DrawableTypeRequest request, Options options) {
+    private RequestBuilder<Drawable> wrapScaleType(RequestBuilder<Drawable> request, Options options) {
         if (options != null
                 && options.scaleType != null) {
             switch (options.scaleType) {
@@ -321,6 +349,7 @@ public class GlideLoader implements ILoader {
                     break;
 
                 case CENTER_INSIDE:
+                    request.centerInside();
                     break;
 
                 case FIT_CENTER:

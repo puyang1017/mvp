@@ -1,8 +1,12 @@
 package com.android.puy.mvpkotlin
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import com.android.puy.puymvpjava.imageloader.*
 import com.android.puy.puymvpjava.mvp.XFragmentationActivity
+import com.bumptech.glide.load.ImageHeaderParser
 import kotlinx.android.synthetic.main.activity_main.*
 import persents.Pmain
 import views.IVmain
