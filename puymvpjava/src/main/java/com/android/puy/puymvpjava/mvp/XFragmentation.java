@@ -127,7 +127,7 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
     }
 
     protected RxPermissions getRxPermissions() {
-        rxPermissions = new RxPermissions(getActivity());
+        rxPermissions = new RxPermissions(this);
         rxPermissions.setLogging(XDroidConf.DEV);
         return rxPermissions;
     }
