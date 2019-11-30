@@ -85,7 +85,7 @@ ext {
             "filedownloader"             : 'com.liulishuo.filedownloader:library:1.7.6-SNAPSHOT',
             "dynamicAnimation"           : 'com.android.support:support-dynamic-animation:25.3.1',
             "scalablevideoview"          : 'com.yqritc:android-scalablevideoview:1.0.4',
-            "mqttv3"                     : 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0',
+            "mqttv3"                     : 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.2',
             "SmartRefreshLayout"         : 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-18',
             "fragmentation"              : 'com.github.puyang1017:Fragmentation:2.0.0',
             "facebookrebound"            : 'com.facebook.rebound:rebound:0.3.8',
