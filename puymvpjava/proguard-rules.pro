@@ -62,7 +62,16 @@
 
 -keep class com.android.puy.puymvpjava.** {*;}
 
--keep class updateapp.** {*;}
+-keep class updateapp.constacne.** {*;}
+
+-keep class updateapp.constacne.** {*;}
+
+-keep class updateapp.extension.** {*;}
+-keep class updateapp.listener.** {*;}
+-keep class updateapp.model.** {*;}
+-keep class updateapp.ui.** {*;}
+-keep class updateapp.update.** {*;}
+-keep class updateapp.util.** {*;}
 
 -keep class com.umeng.** {*;}
 
