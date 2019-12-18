@@ -62,6 +62,8 @@
 
 -keep class com.android.puy.puymvpjava.** {*;}
 
+-keep class updateapp.** {*;}
+
 -keep class com.umeng.** {*;}
 
 -keepclassmembers class * {
