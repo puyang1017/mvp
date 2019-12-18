@@ -2,7 +2,7 @@ package util
 
 import android.app.Activity
 import android.app.AlertDialog
-import com.android.puy.puyupdateapp.R
+import com.android.puy.puymvpjava.R
 
 /**
  * desc: AlertDialogUtil

@@ -1,6 +1,6 @@
 package model
 
-import com.android.puy.puyupdateapp.R
+import com.android.puy.puymvpjava.R
 import constacne.UiType
 import util.GlobalContextProvider
 

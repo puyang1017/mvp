@@ -17,7 +17,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.android.puy.puyupdateapp.R
+import com.android.puy.puymvpjava.R
 import constacne.DownLoadBy
 import constacne.UiType
 import extension.no

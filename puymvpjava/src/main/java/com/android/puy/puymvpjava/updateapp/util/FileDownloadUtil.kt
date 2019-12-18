@@ -51,7 +51,10 @@ internal object FileDownloadUtil {
                     requestMethod = "GET"
                     setRequestProperty("Charset", "utf-8")
                     setRequestProperty("Accept-Encoding", "identity")
-                    setRequestProperty("User-Agent", " Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36")
+                    setRequestProperty(
+                        "User-Agent",
+                        " Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.120 Safari/537.36"
+                    )
                     connect()
                 }
 
@@ -92,7 +95,11 @@ internal object FileDownloadUtil {
     }
 }
 
-fun InputStream.copyToWithProgress(out: OutputStream, bufferSize: Int = DEFAULT_BUFFER_SIZE, currentByte: (Long) -> Unit = {}): Long {
+fun InputStream.copyToWithProgress(
+    out: OutputStream,
+    bufferSize: Int = DEFAULT_BUFFER_SIZE,
+    currentByte: (Long) -> Unit = {}
+): Long {
     var bytesCopied: Long = 0
     val buffer = ByteArray(bufferSize)
     var bytes = read(buffer)
