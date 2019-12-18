@@ -74,7 +74,8 @@ internal class UpdateAppActivity : AppCompatActivity() {
         UpdateAppUtils.onInitUiListener?.onInitUpdateUi(
             window.decorView.findViewById(android.R.id.content),
             updateConfig,
-            uiConfig)
+            uiConfig
+        )
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -207,9 +208,12 @@ internal class UpdateAppActivity : AppCompatActivity() {
             DownLoadBy.APP -> {
                 (updateConfig.checkWifi && !Utils.isWifiConnected(applicationContext)).yes {
                     // 需要进行WiFi判断
-                    AlertDialogUtil.show(this, getString(R.string.check_wifi_notice), onSureClick = {
-                        realDownload()
-                    })
+                    AlertDialogUtil.show(
+                        this,
+                        getString(R.string.check_wifi_notice),
+                        onSureClick = {
+                            realDownload()
+                        })
                 }.no {
                     // 不需要wifi判断，直接下载
                     realDownload()
@@ -262,7 +266,11 @@ internal class UpdateAppActivity : AppCompatActivity() {
     /**
      * 权限请求结果
      */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when (requestCode) {
@@ -271,11 +279,14 @@ internal class UpdateAppActivity : AppCompatActivity() {
             }.no {
                 ActivityCompat.shouldShowRequestPermissionRationale(this, permission).no {
                     // 显示无权限弹窗
-                    AlertDialogUtil.show(this, getString(R.string.no_storage_permission), onSureClick = {
-                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                        intent.data = Uri.parse("package:$packageName") // 根据包名打开对应的设置界面
-                        startActivity(intent)
-                    })
+                    AlertDialogUtil.show(
+                        this,
+                        getString(R.string.no_storage_permission),
+                        onSureClick = {
+                            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                            intent.data = Uri.parse("package:$packageName") // 根据包名打开对应的设置界面
+                            startActivity(intent)
+                        })
                 }
             }
         }
