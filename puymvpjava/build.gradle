@@ -30,13 +30,12 @@ android {
 }
 
 
+
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'com.google.android.material:material:1.0.0'
     api 'androidx.annotation:annotation:1.1.0'
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    api rootProject.ext.dependencies["filedownloader"]
     api rootProject.ext.dependencies["xrecyclerview"]
     api rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-apt"]

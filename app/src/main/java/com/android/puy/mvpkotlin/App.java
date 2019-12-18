@@ -1,14 +1,12 @@
 package com.android.puy.mvpkotlin;
 
-
-import androidx.multidex.MultiDexApplication;
-
+import android.app.Application;
 import com.android.puy.puymvpjava.imageloader.ILFactory;
 
 /**
  * Created by puy on 2019/8/23 13:06
  */
-public class App extends MultiDexApplication {
+public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
