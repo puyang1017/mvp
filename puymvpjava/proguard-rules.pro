@@ -62,14 +62,6 @@
 
 -keep class com.android.puy.puymvpjava.** {*;}
 
--keep class updateapp.constacne.** {*;}
--keep class updateapp.extension.** {*;}
--keep class updateapp.listener.** {*;}
--keep class updateapp.model.** {*;}
--keep class updateapp.ui.** {*;}
--keep class updateapp.update.** {*;}
--keep class updateapp.util.** {*;}
-
 #kotlin
 -keep class kotlin.** { *; }
 -keep class kotlin.Metadata { *; }
