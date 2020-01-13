@@ -2,6 +2,8 @@ package com.android.puy.puymvpjava.net;
 
 import com.android.puy.puymvpjava.kit.Kits;
 import com.android.puy.puymvpjava.net.progress.ProgressHelper;
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory;
+
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -10,7 +12,9 @@ import io.reactivex.schedulers.Schedulers;
 import okhttp3.CookieJar;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+
 import org.reactivestreams.Publisher;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -49,7 +53,7 @@ public class XApi {
 
 
     public static <S> S get(String baseUrl, Class<S> service) {
-        return getInstance().getRetrofit(baseUrl, true).create(service);
+        return getInstance().getRetrofit(baseUrl, true, false).create(service);
     }
 
     public static void registerProvider(NetProvider provider) {
@@ -61,12 +65,12 @@ public class XApi {
     }
 
 
-    public Retrofit getRetrofit(String baseUrl, boolean useRx) {
-        return getRetrofit(baseUrl, null, useRx);
+    public Retrofit getRetrofit(String baseUrl, boolean useRx, boolean useCoroutines) {
+        return getRetrofit(baseUrl, null, useRx, useCoroutines);
     }
 
 
-    public Retrofit getRetrofit(String baseUrl, NetProvider provider, boolean useRx) {
+    public Retrofit getRetrofit(String baseUrl, NetProvider provider, boolean useRx, boolean useCoroutines) {
         if (Kits.Empty.check(baseUrl)) {
             throw new IllegalStateException("baseUrl can not be null");
         }
@@ -86,6 +90,8 @@ public class XApi {
                 .addConverterFactory(GsonConverterFactory.create());
         if (useRx) {
             builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
+        } else if (useCoroutines) {
+            builder.addCallAdapterFactory(CoroutineCallAdapterFactory.Companion.create());
         }
 
         Retrofit retrofit = builder.build();
@@ -215,6 +221,7 @@ public class XApi {
 
     /**
      * 不使用Gson和 rxjava
+     *
      * @param baseUrl
      * @return
      */
@@ -222,6 +229,6 @@ public class XApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .build();
-        return  retrofit;
+        return retrofit;
     }
 }
