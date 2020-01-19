@@ -2,7 +2,7 @@ package com.android.puy.mvpkotlin
 
 import android.os.Bundle
 import android.os.Handler
-import com.android.puy.puymvpjava.mvp.XLazyFragmention
+import com.android.puy.puymvpjava.mvp.XFragmentation
 import kotlinx.android.synthetic.main.activity_page.*
 import persents.Pmain
 import views.IVmain
@@ -10,7 +10,7 @@ import views.IVmain
 /**
  * Created by puy on 2019/9/5 18:37
  */
-class PageTwo : XLazyFragmention<Pmain>(), IVmain {
+class PageTwo : XFragmentation<Pmain>(), IVmain {
     companion object {
         fun newInstance(): PageTwo {
             return PageTwo()
@@ -18,7 +18,11 @@ class PageTwo : XLazyFragmention<Pmain>(), IVmain {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
-            text.text = "7777"
+    }
+
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        super.onLazyInitView(savedInstanceState)
+        text.text = "7777"
         text.postDelayed({   text.text = "88888"},1000)
     }
 
