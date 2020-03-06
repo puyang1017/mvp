@@ -38,6 +38,21 @@ public interface IMqttStatusListener {
     void subscribeFail(IMqttToken iMqttToken, Throwable throwable);
 
     /**
+     * 解绑订阅成功
+     *
+     * @param iMqttToken
+     */
+    void unSubscribeSuccess(IMqttToken iMqttToken);
+
+    /**
+     * 解绑订阅失败
+     *
+     * @param iMqttToken
+     * @param throwable
+     */
+    void unSubscribeFail(IMqttToken iMqttToken, Throwable throwable);
+
+    /**
      * 链接完成
      *
      * @param reconnect 链接完成后的链接状态 可能会失去链接

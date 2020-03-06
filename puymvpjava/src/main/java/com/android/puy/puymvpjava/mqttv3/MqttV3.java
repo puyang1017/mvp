@@ -234,7 +234,7 @@ public class MqttV3 {
 
     public void unSubscribe(String topic) {
         try {
-            mqttClient.unsubscribe(topic, this.userContext, iMqttActionListener);
+            mqttClient.unsubscribe(topic, this.userContext, iMqttUnActionListener);
         } catch (MqttException e) {
             e.printStackTrace();
         }
@@ -247,7 +247,7 @@ public class MqttV3 {
         try {
             int size = topics.size();
             String[] subscribeTopics = topics.toArray(new String[size]);
-            mqttClient.unsubscribe(subscribeTopics, this.userContext, iMqttActionListener);
+            mqttClient.unsubscribe(subscribeTopics, this.userContext, iMqttUnActionListener);
         } catch (MqttException e) {
             e.printStackTrace();
         }
@@ -284,6 +284,27 @@ public class MqttV3 {
             //System.out.println("订阅失败");
             if (mIMqttStatusListener != null) {
                 mIMqttStatusListener.subscribeFail(iMqttToken, throwable);
+            }
+        }
+    };
+
+    /**
+     * 订阅的动作后的回调
+     */
+    private IMqttActionListener iMqttUnActionListener = new IMqttActionListener() {
+        @Override
+        public void onSuccess(IMqttToken iMqttToken) {
+            //System.out.println("订阅成功");
+            if (mIMqttStatusListener != null) {
+                mIMqttStatusListener.unSubscribeSuccess(iMqttToken);
+            }
+        }
+
+        @Override
+        public void onFailure(IMqttToken iMqttToken, Throwable throwable) {
+            //System.out.println("订阅失败");
+            if (mIMqttStatusListener != null) {
+                mIMqttStatusListener.unSubscribeFail(iMqttToken, throwable);
             }
         }
     };
