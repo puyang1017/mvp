@@ -4,6 +4,7 @@ import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import javax.net.SocketFactory;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -226,6 +227,27 @@ public class MqttV3 {
                 messageListeners[i] = iMqttMessageListener;
             }
             mqttClient.subscribe(subscribeTopics, qos, this.userContext, iMqttActionListener, messageListeners);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unSubscribe(String topic) {
+        try {
+            mqttClient.unsubscribe(topic, this.userContext, iMqttActionListener);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void unSubscribe(List<String> topics) {
+        if (topics == null || topics.size() <= 0) {
+            return;
+        }
+        try {
+            int size = topics.size();
+            String[] subscribeTopics = topics.toArray(new String[size]);
+            mqttClient.unsubscribe(subscribeTopics, this.userContext, iMqttActionListener);
         } catch (MqttException e) {
             e.printStackTrace();
         }
