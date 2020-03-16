@@ -5,7 +5,16 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import butterknife.Unbinder;
+import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
+
 import com.android.puy.puymvpjava.XDroidConf;
 import com.android.puy.puymvpjava.customs.SwipeBackActivity;
 import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
@@ -13,21 +22,57 @@ import com.android.puy.puymvpjava.event.BusProvider;
 import com.android.puy.puymvpjava.kit.KnifeKit;
 import com.gyf.immersionbar.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.trello.rxlifecycle3.LifecycleProvider;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+import com.trello.rxlifecycle3.RxLifecycle;
+import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
 import com.umeng.analytics.MobclickAgent;
+
 import org.greenrobot.eventbus.EventBus;
 
 //侧滑返回Activity  setSwipeBackEnable 进行设置是否打开返回
-public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivity implements IView<P> {
+public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivity implements IView<P>, LifecycleProvider<ActivityEvent> {
     private ImmersionBar mImmersionBar;
     private VDelegate vDelegate;
     private P p;
     protected Activity context;
     private RxPermissions rxPermissions;
     private Unbinder unbinder;
+    private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
+
+    @Override
+    @NonNull
+    @CheckResult
+    public final Observable<ActivityEvent> lifecycle() {
+        return lifecycleSubject.hide();
+    }
+
+    @Override
+    @NonNull
+    @CheckResult
+    public final <T> LifecycleTransformer<T> bindUntilEvent(@NonNull ActivityEvent event) {
+        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
+    }
+
+    @Override
+    @NonNull
+    @CheckResult
+    public final <T> LifecycleTransformer<T> bindToLifecycle() {
+        return RxLifecycleAndroid.bindActivity(lifecycleSubject);
+    }
+
+    @Override
+    @CallSuper
+    protected void onStop() {
+        lifecycleSubject.onNext(ActivityEvent.STOP);
+        super.onStop();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        lifecycleSubject.onNext(ActivityEvent.CREATE);
         context = this;
 
         if (getLayoutId() > 0) {
@@ -67,6 +112,7 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
     @Override
     protected void onStart() {
         super.onStart();
+        lifecycleSubject.onNext(ActivityEvent.START);
         if (useRxBus()) {
             BusProvider.getBus().register(this);
         }
@@ -75,6 +121,7 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
     @Override
     protected void onResume() {
         super.onResume();
+        lifecycleSubject.onNext(ActivityEvent.RESUME);
         getvDelegate().resume();
         MobclickAgent.onResume(this);
     }
@@ -82,6 +129,7 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
     @Override
     protected void onPause() {
         super.onPause();
+        lifecycleSubject.onNext(ActivityEvent.PAUSE);
         getvDelegate().pause();
         MobclickAgent.onPause(this);
     }
@@ -99,6 +147,7 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        lifecycleSubject.onNext(ActivityEvent.DESTROY);
         if (useRxBus()) {
             BusProvider.getBus().unregister(this);
         }
@@ -142,21 +191,21 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
     }
 
 
-    public void initStatusBar(int id){
+    public void initStatusBar(int id) {
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.titleBar(id);
         mImmersionBar.keyboardEnable(true);
         mImmersionBar.init();
     }
 
-    public void initStatusBarNoKeyBorard(int id){
+    public void initStatusBarNoKeyBorard(int id) {
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.titleBar(id);
         mImmersionBar.init();
     }
 
-    public void setMaterialRipple(View ...views){
-        for (View view:views){
+    public void setMaterialRipple(View... views) {
+        for (View view : views) {
             MaterialRippleLayout.on(view)
                     .rippleColor(Color.BLACK)
                     .create();

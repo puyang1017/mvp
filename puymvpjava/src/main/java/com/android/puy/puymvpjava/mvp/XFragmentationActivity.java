@@ -2,35 +2,71 @@ package com.android.puy.puymvpjava.mvp;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.view.Menu;
 import android.view.View;
+
 import butterknife.Unbinder;
+
 import com.android.puy.puymvpjava.XDroidConf;
 import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
 import com.android.puy.puymvpjava.event.BusProvider;
 import com.android.puy.puymvpjava.kit.KnifeKit;
 import com.gyf.immersionbar.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.trello.rxlifecycle3.LifecycleProvider;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+import com.trello.rxlifecycle3.RxLifecycle;
+import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
 import com.umeng.analytics.MobclickAgent;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
 import me.yokeyword.fragmentation.SupportActivity;
+
 import org.greenrobot.eventbus.EventBus;
 
 //fragment 管理使用的 Activity
-public abstract class XFragmentationActivity<P extends IPresent> extends SupportActivity implements IView<P> {
+public abstract class XFragmentationActivity<P extends IPresent> extends SupportActivity implements IView<P>, LifecycleProvider<ActivityEvent> {
     protected ImmersionBar mImmersionBar;
     private VDelegate vDelegate;
     private P p;
     protected Activity context;
     private RxPermissions rxPermissions;
     private Unbinder unbinder;
+    private final BehaviorSubject<ActivityEvent> lifecycleSubject = BehaviorSubject.create();
 
+    @Override
+    @NonNull
+    @CheckResult
+    public final Observable<ActivityEvent> lifecycle() {
+        return lifecycleSubject.hide();
+    }
+
+    @Override
+    @NonNull
+    @CheckResult
+    public final <T> LifecycleTransformer<T> bindUntilEvent(@NonNull ActivityEvent event) {
+        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
+    }
+
+    @Override
+    @NonNull
+    @CheckResult
+    public final <T> LifecycleTransformer<T> bindToLifecycle() {
+        return RxLifecycleAndroid.bindActivity(lifecycleSubject);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = this;
-
+        lifecycleSubject.onNext(ActivityEvent.CREATE);
         if (getLayoutId() > 0) {
             setContentView(getLayoutId());
             bindUI(null);
@@ -67,15 +103,22 @@ public abstract class XFragmentationActivity<P extends IPresent> extends Support
     @Override
     protected void onStart() {
         super.onStart();
+        lifecycleSubject.onNext(ActivityEvent.START);
         if (useRxBus()) {
             BusProvider.getBus().register(this);
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        lifecycleSubject.onNext(ActivityEvent.STOP);
+    }
 
     @Override
     protected void onResume() {
         super.onResume();
+        lifecycleSubject.onNext(ActivityEvent.RESUME);
         getvDelegate().resume();
         MobclickAgent.onResume(this);
     }
@@ -83,6 +126,7 @@ public abstract class XFragmentationActivity<P extends IPresent> extends Support
     @Override
     protected void onPause() {
         super.onPause();
+        lifecycleSubject.onNext(ActivityEvent.PAUSE);
         getvDelegate().pause();
         MobclickAgent.onPause(this);
     }
@@ -100,6 +144,7 @@ public abstract class XFragmentationActivity<P extends IPresent> extends Support
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        lifecycleSubject.onNext(ActivityEvent.DESTROY);
         if (useRxBus()) {
             BusProvider.getBus().unregister(this);
         }
@@ -158,8 +203,8 @@ public abstract class XFragmentationActivity<P extends IPresent> extends Support
         mImmersionBar.init();
     }
 
-    public void setMaterialRipple(int color,View ...views){
-        for (View view:views){
+    public void setMaterialRipple(int color, View... views) {
+        for (View view : views) {
             MaterialRippleLayout.on(view)
                     .rippleColor(color)
                     .rippleOverlay(true)

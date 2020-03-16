@@ -4,32 +4,80 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import butterknife.Unbinder;
+
 import com.android.puy.puymvpjava.XDroidConf;
 import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
 import com.android.puy.puymvpjava.event.BusProvider;
 import com.android.puy.puymvpjava.kit.KnifeKit;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.trello.rxlifecycle3.LifecycleProvider;
+import com.trello.rxlifecycle3.LifecycleTransformer;
+import com.trello.rxlifecycle3.RxLifecycle;
+import com.trello.rxlifecycle3.android.ActivityEvent;
+import com.trello.rxlifecycle3.android.FragmentEvent;
+import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
+
+import io.reactivex.Observable;
+import io.reactivex.subjects.BehaviorSubject;
 import me.yokeyword.fragmentation.SupportFragment;
+
 import org.greenrobot.eventbus.EventBus;
 
 
-public abstract class XFragmentation<P extends IPresent> extends SupportFragment implements IView<P> {
-
+public abstract class XFragmentation<P extends IPresent> extends SupportFragment implements IView<P>, LifecycleProvider<FragmentEvent> {
     private VDelegate vDelegate;
     private P p;
     protected Activity context;
     private View rootView;
     protected LayoutInflater layoutInflater;
-
     private RxPermissions rxPermissions;
-
     private Unbinder unbinder;
+    private final BehaviorSubject<FragmentEvent> lifecycleSubject = BehaviorSubject.create();
 
+    @Override
+    @NonNull
+    @CheckResult
+    public final Observable<FragmentEvent> lifecycle() {
+        return lifecycleSubject.hide();
+    }
+
+    @Override
+    @NonNull
+    @CheckResult
+    public final <T> LifecycleTransformer<T> bindUntilEvent(@NonNull FragmentEvent event) {
+        return RxLifecycle.bindUntilEvent(lifecycleSubject, event);
+    }
+
+    @Override
+    @NonNull
+    @CheckResult
+    public final <T> LifecycleTransformer<T> bindToLifecycle() {
+        return RxLifecycleAndroid.bindFragment(lifecycleSubject);
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        lifecycleSubject.onNext(FragmentEvent.CREATE);
+    }
+
+    @Override
+    @CallSuper
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        lifecycleSubject.onNext(FragmentEvent.CREATE_VIEW);
+    }
 
     @Nullable
     @Override
@@ -84,8 +132,45 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
     }
 
     @Override
+    @CallSuper
+    public void onStart() {
+        super.onStart();
+        lifecycleSubject.onNext(FragmentEvent.START);
+    }
+
+    @Override
+    @CallSuper
+    public void onResume() {
+        super.onResume();
+        lifecycleSubject.onNext(FragmentEvent.RESUME);
+    }
+
+    @Override
+    @CallSuper
+    public void onPause() {
+        lifecycleSubject.onNext(FragmentEvent.PAUSE);
+        super.onPause();
+    }
+
+    @Override
+    @CallSuper
+    public void onStop() {
+        lifecycleSubject.onNext(FragmentEvent.STOP);
+        super.onStop();
+    }
+
+    @Override
+    @CallSuper
+    public void onDestroy() {
+        lifecycleSubject.onNext(FragmentEvent.DESTROY);
+        super.onDestroy();
+    }
+
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        lifecycleSubject.onNext(FragmentEvent.ATTACH);
         if (context instanceof Activity) {
             this.context = (Activity) context;
         }
@@ -94,6 +179,7 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
     @Override
     public void onDetach() {
         super.onDetach();
+        lifecycleSubject.onNext(FragmentEvent.DETACH);
         context = null;
     }
 
@@ -111,6 +197,7 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        lifecycleSubject.onNext(FragmentEvent.DESTROY_VIEW);
         if (useRxBus()) {
             BusProvider.getBus().unregister(this);
         }
