@@ -4,6 +4,7 @@ import org.eclipse.paho.client.mqttv3.*;
 import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import javax.net.SocketFactory;
+import javax.net.ssl.HostnameVerifier;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -59,6 +60,10 @@ public class MqttV3 {
         mMqttConnectOptions.setMqttVersion(this.mqttVersion);
         mMqttConnectOptions.setKeepAliveInterval(this.keepAliveInterval);
         mMqttConnectOptions.setConnectionTimeout(this.connectionTimeout);
+        mMqttConnectOptions.setHttpsHostnameVerificationEnabled(this.httpsHostnameVerificationEnabled);
+        if (sslHostnameVerifier != null) {
+            mMqttConnectOptions.setSSLHostnameVerifier(this.sslHostnameVerifier);
+        }
         if (this.socketFactory != null) {
             mMqttConnectOptions.setSocketFactory(this.socketFactory);
         }
@@ -408,6 +413,8 @@ public class MqttV3 {
     private boolean publishMsgRetained;
     private Object userContext = null;
     private SocketFactory socketFactory;
+    private boolean httpsHostnameVerificationEnabled = true;
+    private HostnameVerifier sslHostnameVerifier = null;
     private IReceiveActionListener mIReceiveActionListener;
     private IMqttStatusListener mIMqttStatusListener;
 
@@ -473,8 +480,21 @@ public class MqttV3 {
         private boolean publishMsgRetained = true;
         private Object userContext = null;
         private SocketFactory socketFactory;
+        private boolean httpsHostnameVerificationEnabled = true;
+        private HostnameVerifier sslHostnameVerifier = null;
         private IReceiveActionListener mIReceiveActionListener;
         private IMqttStatusListener mIMqttStatusListener;
+
+
+        public Builder setHttpsHostnameVerificationEnabled(boolean httpsHostnameVerificationEnabled) {
+            this.httpsHostnameVerificationEnabled = httpsHostnameVerificationEnabled;
+            return this;
+        }
+
+        public Builder setSslHostnameVerifier(HostnameVerifier sslHostnameVerifier) {
+            this.sslHostnameVerifier = sslHostnameVerifier;
+            return this;
+        }
 
         /**
          * @param isAlibabaCloud 是否是阿里云mqtt
