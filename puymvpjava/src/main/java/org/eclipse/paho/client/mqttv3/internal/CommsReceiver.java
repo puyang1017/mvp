@@ -28,15 +28,12 @@ import org.eclipse.paho.client.mqttv3.internal.wire.MqttPubAck;
 import org.eclipse.paho.client.mqttv3.internal.wire.MqttPubComp;
 import org.eclipse.paho.client.mqttv3.internal.wire.MqttPubRec;
 import org.eclipse.paho.client.mqttv3.internal.wire.MqttWireMessage;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
 /**
  * Receives MQTT packets from the server.
  */
 public class CommsReceiver implements Runnable {
 	private static final String CLASS_NAME = CommsReceiver.class.getName();
-	private Logger log = LoggerFactory.getLogger(LoggerFactory.MQTT_CLIENT_MSG_CAT, CLASS_NAME);
 
 	private enum State {STOPPED, RUNNING, STARTING, RECEIVING}
 
@@ -57,7 +54,6 @@ public class CommsReceiver implements Runnable {
 		this.clientComms = clientComms;
 		this.clientState = clientState;
 		this.tokenStore = tokenStore;
-		log.setResourceName(clientComms.getClient().getClientId());
 	}
 
 	/**
@@ -69,7 +65,6 @@ public class CommsReceiver implements Runnable {
 		this.threadName = threadName;
 		final String methodName = "start";
 		//@TRACE 855=starting
-		log.fine(CLASS_NAME,methodName, "855");
 		synchronized (lifecycle) {
 			if (current_state == State.STOPPED && target_state == State.STOPPED) {
 				target_state = State.RUNNING;
@@ -95,7 +90,6 @@ public class CommsReceiver implements Runnable {
 				receiverFuture.cancel(true);
 			}
 			//@TRACE 850=stopping
-			log.fine(CLASS_NAME,methodName, "850");
 			if (isRunning()) {
 				target_state = State.STOPPED;
 			}
@@ -104,7 +98,6 @@ public class CommsReceiver implements Runnable {
 			try { Thread.sleep(100); } catch (Exception e) { }
 		}
 		//@TRACE 851=stopped
-		log.fine(CLASS_NAME,methodName,"851");
 	}
 
 	/**
@@ -128,7 +121,6 @@ public class CommsReceiver implements Runnable {
 			while (my_target == State.RUNNING && (in != null)) {
 				try {
 					//@TRACE 852=network read message
-					log.fine(CLASS_NAME,methodName,"852");
 					if (in.available() > 0) {
 						synchronized (lifecycle) {
 							current_state = State.RECEIVING;
@@ -155,7 +147,6 @@ public class CommsReceiver implements Runnable {
 							//This probably means we already received this message and it's being send again
 							//because of timeouts, crashes, disconnects, restarts etc.
 							//It should be safe to ignore these unexpected messages.
-							log.fine(CLASS_NAME, methodName, "857");
 						} else {
 							// It its an ack and there is no token then something is not right.
 							// An ack should always have a token assoicated with it.
@@ -170,7 +161,6 @@ public class CommsReceiver implements Runnable {
 				}
 				catch (MqttException ex) {
 					//@TRACE 856=Stopping, MQttException
-					log.fine(CLASS_NAME,methodName,"856",null,ex);
 					synchronized (lifecycle) {
 						target_state = State.STOPPED;
 					}
@@ -179,7 +169,6 @@ public class CommsReceiver implements Runnable {
 				}
 				catch (IOException ioe) {
 					//@TRACE 853=Stopping due to IOException
-					log.fine(CLASS_NAME,methodName,"853");
 					synchronized (lifecycle) {
 						target_state = State.STOPPED;
 					}
@@ -207,7 +196,6 @@ public class CommsReceiver implements Runnable {
 
 		recThread = null;
 		//@TRACE 854=<
-		log.fine(CLASS_NAME,methodName,"854");
 	}
 
 	public boolean isRunning() {

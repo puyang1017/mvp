@@ -22,13 +22,10 @@ import org.eclipse.paho.client.mqttv3.DisconnectedBufferOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttToken;
 import org.eclipse.paho.client.mqttv3.internal.wire.MqttWireMessage;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
 public class DisconnectedMessageBuffer implements Runnable {
 
 	private final String CLASS_NAME = "DisconnectedMessageBuffer";
-	private Logger log = LoggerFactory.getLogger(LoggerFactory.MQTT_CLIENT_MSG_CAT, CLASS_NAME);
 	private DisconnectedBufferOptions bufferOpts;
 	private ArrayList<BufferedMessage> buffer;
 	private final Object bufLock = new Object(); // Used to synchronise the buffer
@@ -109,7 +106,6 @@ public class DisconnectedMessageBuffer implements Runnable {
 	public void run() {
 		final String methodName = "run";
 		// @TRACE 516=Restoring all buffered messages.
-		log.fine(CLASS_NAME, methodName, "516");
 		while (getMessageCount() > 0) {
 			try {
 				BufferedMessage bufferedMessage = getMessage(0);
@@ -125,7 +121,6 @@ public class DisconnectedMessageBuffer implements Runnable {
 					// Error occurred attempting to publish buffered message likely because the
 					// client is not connected
 					// @TRACE 519=Error occurred attempting to publish buffered message due to disconnect. Exception: {0}:{1}.
-					log.severe(CLASS_NAME, methodName, "519", new Object[] { ex.getReasonCode(), ex.getMessage() });
 					break;
 				}
 			}

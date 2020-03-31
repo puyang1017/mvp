@@ -21,8 +21,6 @@ import java.util.regex.Pattern;
 
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 import org.eclipse.paho.client.mqttv3.spi.NetworkModuleFactory;
 
 /**
@@ -33,8 +31,6 @@ import org.eclipse.paho.client.mqttv3.spi.NetworkModuleFactory;
  * @author Maik Scheibler
  */
 public class NetworkModuleService {
-	private static Logger LOG = LoggerFactory.getLogger(LoggerFactory.MQTT_CLIENT_MSG_CAT,
-			NetworkModuleService.class.getSimpleName());
 	private static final ServiceLoader<NetworkModuleFactory> FACTORY_SERVICE_LOADER = ServiceLoader.load(
 			NetworkModuleFactory.class, NetworkModuleService.class.getClassLoader());
 
@@ -149,8 +145,6 @@ public class NetworkModuleService {
 			field.setAccessible(true);
 			field.set(toManipulate, newValue);
 		} catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-			LOG.warning(NetworkModuleService.class.getName(), "setURIField", "115", new Object[] {
-					toManipulate.toString() }, e);
 		}
 	}
 }

@@ -30,6 +30,7 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.Set;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
@@ -39,7 +40,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 
 import org.eclipse.paho.client.mqttv3.MqttSecurityException;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
 
 
 /**
@@ -148,8 +148,6 @@ public class SSLSocketFactoryFactory {
 
 	private static final String xorTag = "{xor}";
 	
-	private Logger logger = null;
-
 
 	/**
 	 * Not all of the JVM/Platforms support all of its
@@ -189,7 +187,6 @@ public class SSLSocketFactoryFactory {
 	 */
 	public SSLSocketFactoryFactory(Logger logger) {
 		this();
-		this.logger = logger;
 	}
 
 	/**
@@ -1105,7 +1102,6 @@ public class SSLSocketFactoryFactory {
 	 * @param configID
 	 *            The configuration ID
 	 * @return An SSL context factory.
-	 * @throws MqttDirectException
 	 */
 	private SSLContext getSSLContext(String configID)
 			throws MqttSecurityException{
@@ -1116,12 +1112,7 @@ public class SSLSocketFactoryFactory {
 		if (protocol == null) {
 			protocol = DEFAULT_PROTOCOL;
 		}
-		if (logger != null) {
-			// 12000 "SSL initialization: configID = {0}, protocol = {1}"
-			logger.fine(CLASS_NAME, METHOD_NAME, "12000", new Object[] {configID!=null ? configID : "null (broker defaults)", 
-					protocol});
-		}
-		
+
 		String provider = getJSSEProvider(configID);
 		try {
 			if (provider == null) {
@@ -1129,12 +1120,7 @@ public class SSLSocketFactoryFactory {
 			} else {
 				ctx = SSLContext.getInstance(protocol, provider);
 			}
-			if (logger != null) {
-				// 12001 "SSL initialization: configID = {0}, provider = {1}"
-				logger.fine(CLASS_NAME, METHOD_NAME, "12001", new Object[] {configID!=null ? configID : "null (broker defaults)", 
-						ctx.getProvider().getName()});
-			}
-			
+
 			String keyStoreName = getProperty(configID, KEYSTORE, null);
 			KeyStore keyStore=null;
 			KeyManagerFactory keyMgrFact=null;
@@ -1161,29 +1147,14 @@ public class SSLSocketFactoryFactory {
 					 */
 					keyStoreName = getProperty(configID, KEYSTORE, SYSKEYSTORE);
 				}
-				if (logger != null) {
-					// 12004 "SSL initialization: configID = {0}, keystore = {1}"
-					logger.fine(CLASS_NAME, METHOD_NAME, "12004", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-							keyStoreName!=null ? keyStoreName : "null"});
-				}
-				
+
 				char[] keyStorePwd=getKeyStorePassword(configID);
-				if (logger != null) {
-					// 12005 "SSL initialization: configID = {0}, keystore password = {1}"
-					logger.fine(CLASS_NAME, METHOD_NAME, "12005", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-							keyStorePwd!=null ? obfuscate(keyStorePwd) : "null"});
-				}
-				
+
 				String keyStoreType=getKeyStoreType(configID);
 				if(keyStoreType==null) {
 					keyStoreType = KeyStore.getDefaultType();
 				}
-				if (logger != null) {
-					// 12006 "SSL initialization: configID = {0}, keystore type = {1}"
-					logger.fine(CLASS_NAME, METHOD_NAME, "12006", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-							keyStoreType!=null ? keyStoreType : "null"});
-				}
-				
+
 				String keyMgrAlgo = KeyManagerFactory.getDefaultAlgorithm();
 				String keyMgrProvider = getKeyStoreProvider(configID);
 				String keyManager = getKeyManager(configID);
@@ -1199,14 +1170,6 @@ public class SSLSocketFactoryFactory {
 							keyMgrFact = KeyManagerFactory.getInstance(keyMgrAlgo, keyMgrProvider);
 						} else {
 							keyMgrFact = KeyManagerFactory.getInstance(keyMgrAlgo);
-						}
-						if (logger != null) {
-							// 12010 "SSL initialization: configID = {0}, keystore manager algorithm = {1}"
-							logger.fine(CLASS_NAME, METHOD_NAME, "12010", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-									keyMgrAlgo!=null ? keyMgrAlgo : "null"});
-							// 12009 "SSL initialization: configID = {0}, keystore manager provider = {1}"
-							logger.fine(CLASS_NAME, METHOD_NAME, "12009", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-									keyMgrFact.getProvider().getName()});				
 						}
 						keyMgrFact.init(keyStore, keyStorePwd);
 						keyMgr=keyMgrFact.getKeyManagers();
@@ -1226,30 +1189,15 @@ public class SSLSocketFactoryFactory {
 			// keystore loaded, keymanagers instantiated if possible
 			// now the same for the truststore.
 			String trustStoreName = getTrustStore(configID);
-			if (logger != null) {
-				// 12011 "SSL initialization: configID = {0}, truststore = {1}"
-				logger.fine(CLASS_NAME, METHOD_NAME, "12011", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-						trustStoreName!=null ? trustStoreName : "null"});
-			}
 			KeyStore trustStore=null;
 			TrustManagerFactory trustMgrFact=null;
 			TrustManager[] trustMgr=null;
 			char[] trustStorePwd=getTrustStorePassword(configID);
-			if (logger != null) {
-				// 12012 "SSL initialization: configID = {0}, truststore password = {1}"
-				logger.fine(CLASS_NAME, METHOD_NAME, "12012", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-						trustStorePwd!=null ? obfuscate(trustStorePwd) : "null"});
-			}
 			String trustStoreType=getTrustStoreType(configID);
 			if(trustStoreType==null) {
 				trustStoreType = KeyStore.getDefaultType();
 			}
-			if (logger != null) {
-				// 12013 "SSL initialization: configID = {0}, truststore type = {1}"
-				logger.fine(CLASS_NAME, METHOD_NAME, "12013", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-						trustStoreType!=null ? trustStoreType : "null"});
-			}
-			
+
 			String trustMgrAlgo = TrustManagerFactory.getDefaultAlgorithm();
 			String trustMgrProvider = getTrustStoreProvider(configID);
 			String trustManager = getTrustManager(configID);
@@ -1265,16 +1213,6 @@ public class SSLSocketFactoryFactory {
 						trustMgrFact = TrustManagerFactory.getInstance(trustMgrAlgo, trustMgrProvider);
 					} else {
 						trustMgrFact = TrustManagerFactory.getInstance(trustMgrAlgo);
-					}
-					if (logger != null) {
-						
-						// 12017 "SSL initialization: configID = {0}, truststore manager algorithm = {1}"
-						logger.fine(CLASS_NAME, METHOD_NAME, "12017", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-								trustMgrAlgo!=null ? trustMgrAlgo : "null"});
-						
-						// 12016 "SSL initialization: configID = {0}, truststore manager provider = {1}"
-						logger.fine(CLASS_NAME, METHOD_NAME, "12016", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-								trustMgrFact.getProvider().getName()});		
 					}
 					trustMgrFact.init(trustStore);
 					trustMgr=trustMgrFact.getTrustManagers();
@@ -1346,12 +1284,7 @@ public class SSLSocketFactoryFactory {
 			throws MqttSecurityException {
 		final String METHOD_NAME = "createSocketFactory";
 		SSLContext ctx = getSSLContext(configID);
-		if (logger != null) {
-			// 12020 "SSL initialization: configID = {0}, application-enabled cipher suites = {1}"
-			logger.fine(CLASS_NAME, METHOD_NAME, "12020", new Object[]{configID!=null ? configID : "null (broker defaults)", 
-					getEnabledCipherSuites(configID)!=null ? getProperty(configID, CIPHERSUITES, null) : "null (using platform-enabled cipher suites)"});
-		}
-			
+
 		return ctx.getSocketFactory();
 	}
 

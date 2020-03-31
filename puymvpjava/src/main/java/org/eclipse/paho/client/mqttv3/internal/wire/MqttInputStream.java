@@ -25,8 +25,6 @@ import java.net.SocketTimeoutException;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.internal.ClientState;
 import org.eclipse.paho.client.mqttv3.internal.ExceptionHelper;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
 
 /**
@@ -35,7 +33,6 @@ import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
  */
 public class MqttInputStream extends InputStream {
 	private final String CLASS_NAME = MqttInputStream.class.getName();
-	private final Logger log = LoggerFactory.getLogger(LoggerFactory.MQTT_CLIENT_MSG_CAT, CLASS_NAME);
 
 	private ClientState clientState = null;
 	private DataInputStream in;	
@@ -118,7 +115,6 @@ public class MqttInputStream extends InputStream {
 				System.arraycopy(header,0,packet,0, header.length);
 				message = MqttWireMessage.createWireMessage(packet);
 				// @TRACE 301= received {0} 
-				log.fine(CLASS_NAME, methodName, "301",new Object[] {message});
 			}
 		} catch (SocketTimeoutException e) {
 			// ignore socket read timeout

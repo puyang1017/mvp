@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
+import java.util.logging.Logger;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttToken;
@@ -26,13 +27,10 @@ import org.eclipse.paho.client.mqttv3.internal.wire.MqttAck;
 import org.eclipse.paho.client.mqttv3.internal.wire.MqttDisconnect;
 import org.eclipse.paho.client.mqttv3.internal.wire.MqttOutputStream;
 import org.eclipse.paho.client.mqttv3.internal.wire.MqttWireMessage;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
 
 public class CommsSender implements Runnable {
 	private static final String CLASS_NAME = CommsSender.class.getName();
-	private Logger log = LoggerFactory.getLogger(LoggerFactory.MQTT_CLIENT_MSG_CAT, CLASS_NAME);
 
 	//Sends MQTT packets to the server on its own thread
 	private enum State {STOPPED, RUNNING, STARTING}
@@ -55,7 +53,6 @@ public class CommsSender implements Runnable {
 		this.clientComms = clientComms;
 		this.clientState = clientState;
 		this.tokenStore = tokenStore;
-		log.setResourceName(clientComms.getClient().getClientId());
 	}
 
 	/**
@@ -95,7 +92,6 @@ public class CommsSender implements Runnable {
 				senderFuture.cancel(true);
 			}
 			//@TRACE 800=stopping sender
-			log.fine(CLASS_NAME,methodName,"800");
 			if (isRunning()) {
 				target_state = State.STOPPED;
 				clientState.notifyQueueLock();
@@ -106,7 +102,6 @@ public class CommsSender implements Runnable {
 			clientState.notifyQueueLock();
 		}
 		//@TRACE 801=stopped
-		log.fine(CLASS_NAME,methodName,"801");
 	}
 
 	public void run() {
@@ -129,7 +124,6 @@ public class CommsSender implements Runnable {
 					message = clientState.get();
 					if (message != null) {
 						//@TRACE 802=network send key={0} msg={1}
-						log.fine(CLASS_NAME,methodName,"802", new Object[] {message.getKey(),message});
 
 						if (message instanceof MqttAck) {
 							out.write(message);
@@ -160,7 +154,6 @@ public class CommsSender implements Runnable {
 						}
 					} else { // null message
 						//@TRACE 803=get message returned null, stopping}
-						log.fine(CLASS_NAME,methodName,"803");
 						synchronized (lifecycle) {
 							target_state = State.STOPPED;
 						}
@@ -182,13 +175,11 @@ public class CommsSender implements Runnable {
 		}
 
 		//@TRACE 805=<
-		log.fine(CLASS_NAME, methodName,"805");
 	}
 
 	private void handleRunException(MqttWireMessage message, Exception ex) {
 		final String methodName = "handleRunException";
 		//@TRACE 804=exception
-		log.fine(CLASS_NAME,methodName,"804",null, ex);
 		MqttException mex;
 		if ( !(ex instanceof MqttException)) {
 			mex = new MqttException(MqttException.REASON_CODE_CONNECTION_LOST, ex);

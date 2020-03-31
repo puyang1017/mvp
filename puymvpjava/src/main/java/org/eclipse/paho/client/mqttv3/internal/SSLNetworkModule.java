@@ -18,6 +18,7 @@ package org.eclipse.paho.client.mqttv3.internal;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLPeerUnverifiedException;
@@ -25,15 +26,12 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
 /**
  * A network module for connecting over SSL.
  */
 public class SSLNetworkModule extends TCPNetworkModule {
     private static final String CLASS_NAME = SSLNetworkModule.class.getName();
-    private Logger log = LoggerFactory.getLogger(LoggerFactory.MQTT_CLIENT_MSG_CAT, CLASS_NAME);
 
     private String[] enabledCiphers;
     private int handshakeTimeoutSecs;
@@ -57,7 +55,6 @@ public class SSLNetworkModule extends TCPNetworkModule {
         super(factory, host, port, resourceContext);
         this.host = host;
         this.port = port;
-        log.setResourceName(resourceContext);
     }
 
     /**
@@ -80,17 +77,6 @@ public class SSLNetworkModule extends TCPNetworkModule {
             this.enabledCiphers = enabledCiphers.clone();
         }
         if ((socket != null) && (this.enabledCiphers != null)) {
-            if (log.isLoggable(Logger.FINE)) {
-                String ciphers = "";
-                for (int i = 0; i < this.enabledCiphers.length; i++) {
-                    if (i > 0) {
-                        ciphers += ",";
-                    }
-                    ciphers += this.enabledCiphers[i];
-                }
-                // @TRACE 260=setEnabledCiphers ciphers={0}
-                log.fine(CLASS_NAME, methodName, "260", new Object[]{ciphers});
-            }
             ((SSLSocket) socket).setEnabledCipherSuites(this.enabledCiphers);
         }
     }

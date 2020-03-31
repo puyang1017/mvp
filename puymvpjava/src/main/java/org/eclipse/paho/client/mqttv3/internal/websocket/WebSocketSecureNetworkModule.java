@@ -26,14 +26,11 @@ import javax.net.ssl.SSLSocketFactory;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.internal.SSLNetworkModule;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
 public class WebSocketSecureNetworkModule extends SSLNetworkModule{
 	
 	private static final String CLASS_NAME = WebSocketSecureNetworkModule.class.getName();
-	private Logger log = LoggerFactory.getLogger(LoggerFactory.MQTT_CLIENT_MSG_CAT, CLASS_NAME);
-	
+
 	private PipedInputStream pipedInputStream;
 	private WebSocketReceiver webSocketReceiver;
 	private String uri;
@@ -56,7 +53,6 @@ public class WebSocketSecureNetworkModule extends SSLNetworkModule{
 		this.port = port;
 		this.customWebSocketHeaders = customWebSocketHeaders;
 		this.pipedInputStream = new PipedInputStream();
-		log.setResourceName(clientId);
 	}
 
 	public void start() throws IOException, MqttException {
