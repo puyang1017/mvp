@@ -27,14 +27,11 @@ import javax.net.SocketFactory;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.internal.TCPNetworkModule;
-import org.eclipse.paho.client.mqttv3.logging.Logger;
-import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
 public class WebSocketNetworkModule extends TCPNetworkModule {
 	
 	private static final String CLASS_NAME = WebSocketNetworkModule.class.getName();
-	private Logger log = LoggerFactory.getLogger(LoggerFactory.MQTT_CLIENT_MSG_CAT, CLASS_NAME);
-		
+
 	private String uri;
 	private String host;
 	private int port;
@@ -58,7 +55,6 @@ public class WebSocketNetworkModule extends TCPNetworkModule {
 		this.customWebsocketHeaders = customWebsocketHeaders;
 		this.pipedInputStream = new PipedInputStream();
 		
-		log.setResourceName(resourceContext);
 	}
 	
 	public void start() throws IOException, MqttException {
