@@ -166,8 +166,7 @@
  -keep class com.gyf.immersionbar.* {*;}
  -dontwarn com.gyf.immersionbar.**
 
- -keep org.eclipse.paho.client.* {*;}
- -dontwarn org.eclipse.paho.client.**
+-keep class org.eclipse.paho.client.** {*;}
 
 
 
