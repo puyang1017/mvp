@@ -166,6 +166,9 @@
  -keep class com.gyf.immersionbar.* {*;}
  -dontwarn com.gyf.immersionbar.**
 
+  -keep org.eclipse.paho.client.mqttv3.* {*;}
+  -dontwarn org.eclipse.paho.client.mqttv3.**
+
 
 
 

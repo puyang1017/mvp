@@ -63,7 +63,6 @@ dependencies {
     //    api rootProject.ext.dependencies["umeng-share-qq"]
     //    api rootProject.ext.dependencies["umeng-share-wechat"]
     //    api rootProject.ext.dependencies["umeng-share-sina"]
-    api rootProject.ext.dependencies["mqttv3"]
     api rootProject.ext.dependencies["fragmentation"]
     api rootProject.ext.dependencies["facebookrebound"]
     api files('libs/commons-codec-1.11.jar')
