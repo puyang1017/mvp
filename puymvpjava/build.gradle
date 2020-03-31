@@ -30,7 +30,6 @@ android {
 }
 
 
-
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'androidx.appcompat:appcompat:1.1.0'
@@ -75,6 +74,7 @@ dependencies {
     api files('libs/umeng-shareboard-widget-6.9.4.jar')
     api files('libs/umeng-sharetool-6.9.4.jar')
     api files('libs/utdid4all-1.1.5.3_proguard.jar')
+    implementation files('libs/org.eclipse.paho.client.mqttv3-1.2.2.jar')
 }
 repositories {
     mavenCentral()
