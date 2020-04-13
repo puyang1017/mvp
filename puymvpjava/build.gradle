@@ -55,6 +55,7 @@ dependencies {
     api rootProject.ext.dependencies["eventbus"]
     api rootProject.ext.dependencies["barlibrary"]
     api rootProject.ext.dependencies["swipebacklayout"]
+    api rootProject.ext.dependencies["reactivenetwork"]
     //    api rootProject.ext.dependencies["umeng-common"]
     //    api rootProject.ext.dependencies["umeng-analytics"]
     //    api rootProject.ext.dependencies["umeng-debug"]
