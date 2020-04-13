@@ -78,7 +78,6 @@ ext {
             "walle"                      : 'com.meituan.android.walle:library:1.1.6',
             "mdprogress"                 : 'com.jaywei:mdprogress:1.0.2',
             "dialogs"                    : 'com.afollestad.material-dialogs:core:0.9.6.0',
-            "reactivenetwork"            : 'com.github.pwittchen:reactivenetwork-rx2:3.0.8',
             "gif"                        : 'pl.droidsonroids.gif:android-gif-drawable:1.2.16',
             "switchbutton"               : 'com.github.zcweng:switch-button:0.0.3@aar',
             "tablayout"                  : 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar',
