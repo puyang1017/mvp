@@ -33,7 +33,7 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api 'androidx.appcompat:appcompat:1.1.0'
-    api 'com.google.android.material:material:1.0.0'
+    api 'com.google.android.material:material:1.1.0'
     api 'androidx.annotation:annotation:1.1.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
     api rootProject.ext.dependencies["xrecyclerview"]
@@ -55,25 +55,9 @@ dependencies {
     api rootProject.ext.dependencies["eventbus"]
     api rootProject.ext.dependencies["barlibrary"]
     api rootProject.ext.dependencies["swipebacklayout"]
-    //    api rootProject.ext.dependencies["umeng-common"]
-    //    api rootProject.ext.dependencies["umeng-analytics"]
-    //    api rootProject.ext.dependencies["umeng-debug"]
-    //    api rootProject.ext.dependencies["umeng-share"]
-    //    api rootProject.ext.dependencies["umeng-share-qq"]
-    //    api rootProject.ext.dependencies["umeng-share-wechat"]
-    //    api rootProject.ext.dependencies["umeng-share-sina"]
     api rootProject.ext.dependencies["fragmentation"]
     api rootProject.ext.dependencies["facebookrebound"]
     api files('libs/commons-codec-1.11.jar')
-    api files('libs/umeng-analytics-8.0.2.jar')
-    api files('libs/umeng-common-2.0.2.jar')
-    api files('libs/umeng-share-core-6.9.4.jar')
-    api files('libs/umeng-share-QQ-simplify-6.9.4.jar')
-    api files('libs/umeng-share-sina-simplify-6.9.4.jar')
-    api files('libs/umeng-share-wechat-simplify-6.9.4.jar')
-    api files('libs/umeng-shareboard-widget-6.9.4.jar')
-    api files('libs/umeng-sharetool-6.9.4.jar')
-    api files('libs/utdid4all-1.1.5.3_proguard.jar')
     implementation files('libs/org.eclipse.paho.client.mqttv3-1.2.2.jar')
 }
 repositories {

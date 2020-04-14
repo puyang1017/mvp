@@ -13,7 +13,6 @@ import com.android.puy.puymvpjava.kit.KnifeKit;
 import com.gyf.immersionbar.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
-import com.umeng.analytics.MobclickAgent;
 import org.greenrobot.eventbus.EventBus;
 
 
@@ -77,14 +76,12 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
     protected void onResume() {
         super.onResume();
         getvDelegate().resume();
-        MobclickAgent.onResume(this);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         getvDelegate().pause();
-        MobclickAgent.onPause(this);
     }
 
     @Override

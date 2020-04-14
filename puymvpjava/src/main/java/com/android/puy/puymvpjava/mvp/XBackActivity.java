@@ -9,7 +9,6 @@ import android.view.View;
 import androidx.annotation.CallSuper;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import butterknife.Unbinder;
 import io.reactivex.Observable;
@@ -27,7 +26,6 @@ import com.trello.rxlifecycle3.LifecycleTransformer;
 import com.trello.rxlifecycle3.RxLifecycle;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
-import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -123,7 +121,6 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
         super.onResume();
         lifecycleSubject.onNext(ActivityEvent.RESUME);
         getvDelegate().resume();
-        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -131,7 +128,6 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
         super.onPause();
         lifecycleSubject.onNext(ActivityEvent.PAUSE);
         getvDelegate().pause();
-        MobclickAgent.onPause(this);
     }
 
     @Override
