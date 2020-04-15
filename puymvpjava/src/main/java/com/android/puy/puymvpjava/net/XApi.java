@@ -65,22 +65,25 @@ public class XApi {
     }
 
 
-    public Retrofit getRetrofit(String baseUrl, boolean useRx, boolean useCoroutines) {
-        return getRetrofit(baseUrl, null, useRx, useCoroutines);
+    public Retrofit getRetrofit(String baseUrl, boolean newConnect, boolean useCoroutines) {
+        return getRetrofit(baseUrl, null, newConnect, useCoroutines);
     }
 
 
-    public Retrofit getRetrofit(String baseUrl, NetProvider provider, boolean useRx, boolean useCoroutines) {
+    public Retrofit getRetrofit(String baseUrl, NetProvider provider, boolean newConnect, boolean useCoroutines) {
         if (Kits.Empty.check(baseUrl)) {
             throw new IllegalStateException("baseUrl can not be null");
         }
-        if (retrofitMap.get(baseUrl) != null) return retrofitMap.get(baseUrl);
+        if(!newConnect){
+            if (retrofitMap.get(baseUrl) != null) return retrofitMap.get(baseUrl);
 
-        if (provider == null) {
-            provider = providerMap.get(baseUrl);
             if (provider == null) {
-                provider = sProvider;
+                provider = providerMap.get(baseUrl);
             }
+        }
+      
+        if (provider == null) {
+            provider = sProvider;
         }
         checkProvider(provider);
 
@@ -88,10 +91,10 @@ public class XApi {
                 .baseUrl(baseUrl)
                 .client(getClient(baseUrl, provider))
                 .addConverterFactory(GsonConverterFactory.create());
-        if (useRx) {
-            builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
-        } else if (useCoroutines) {
+        if (useCoroutines) {
             builder.addCallAdapterFactory(CoroutineCallAdapterFactory.Companion.create());
+        } else {
+            builder.addCallAdapterFactory(RxJava2CallAdapterFactory.create());
         }
 
         Retrofit retrofit = builder.build();
