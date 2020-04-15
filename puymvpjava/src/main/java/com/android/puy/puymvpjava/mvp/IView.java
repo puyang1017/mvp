@@ -15,6 +15,8 @@ public interface IView<P> {
 
     int getLayoutId();
 
+    View getLayoutView();
+
     boolean useEventBus();
 
     boolean useRxBus();

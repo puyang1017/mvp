@@ -1,6 +1,7 @@
 package com.android.puy.mvpkotlin
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.android.puy.puymvpjava.mvp.XFragmentationActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -17,6 +18,9 @@ class MainActivity : XFragmentationActivity<Pmain>(), IVmain {
         list.add(PageOne())
         list.add(PageTwo())
         ViewPager.adapter = Fragment_pager(supportFragmentManager, list)
+    }
 
+    override fun needExitActivity(): Boolean {
+        return true
     }
 }
