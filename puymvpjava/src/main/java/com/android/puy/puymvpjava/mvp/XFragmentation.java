@@ -86,7 +86,10 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
         if (rootView == null && getLayoutId() > 0) {
             rootView = inflater.inflate(getLayoutId(), null);
             bindUI(rootView);
-        } else {
+        } else if(getLayoutView() != null){
+            rootView = getLayoutView();
+            bindUI(rootView);
+        }else {
             ViewGroup viewGroup = (ViewGroup) rootView.getParent();
             if (viewGroup != null) {
                 viewGroup.removeView(rootView);
@@ -95,6 +98,9 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
         return rootView;
     }
 
+    public View getLayoutView() {
+        return null;
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

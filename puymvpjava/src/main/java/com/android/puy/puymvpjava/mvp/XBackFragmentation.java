@@ -12,7 +12,9 @@ import androidx.annotation.CallSuper;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import butterknife.Unbinder;
+
 import com.android.puy.puymvpjava.XDroidConf;
 import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
 import com.android.puy.puymvpjava.event.BusProvider;
@@ -27,6 +29,7 @@ import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
+
 import org.greenrobot.eventbus.EventBus;
 
 
@@ -125,6 +128,9 @@ public abstract class XBackFragmentation<P extends IPresent> extends SwipeBackFr
         if (rootView == null && getLayoutId() > 0) {
             rootView = inflater.inflate(getLayoutId(), null);
             bindUI(rootView);
+        } else if (getLayoutView() != null) {
+            rootView = getLayoutView();
+            bindUI(rootView);
         } else {
             ViewGroup viewGroup = (ViewGroup) rootView.getParent();
             if (viewGroup != null) {
@@ -134,6 +140,9 @@ public abstract class XBackFragmentation<P extends IPresent> extends SwipeBackFr
         return attachToSwipeBack(rootView);
     }
 
+    public View getLayoutView() {
+        return null;
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {

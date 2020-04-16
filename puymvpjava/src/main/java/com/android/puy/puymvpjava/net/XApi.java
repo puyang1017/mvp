@@ -81,7 +81,7 @@ public class XApi {
                 provider = providerMap.get(baseUrl);
             }
         }
-      
+
         if (provider == null) {
             provider = sProvider;
         }
