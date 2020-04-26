@@ -65,8 +65,8 @@ dependencies {
     api rootProject.ext.dependencies["fragmentation"]
     api rootProject.ext.dependencies["facebookrebound"]
     api files('libs/commons-codec-1.11.jar')
-    api files('libs/umeng-analytics-8.0.2.jar')
-    api files('libs/umeng-common-2.0.2.jar')
+    api files('libs/umeng-analytics-8.1.6.jar')
+    api files('libs/umeng-common-2.2.5.jar')
     api files('libs/umeng-share-core-6.9.4.jar')
     api files('libs/umeng-share-QQ-simplify-6.9.4.jar')
     api files('libs/umeng-share-sina-simplify-6.9.4.jar')
