@@ -17,6 +17,10 @@ class MainActivity : XFragmentationActivity<Pmain>(), IVmain {
         list.add(PageOne())
         list.add(PageTwo())
         ViewPager.adapter = Fragment_pager(supportFragmentManager, list)
-
+//        videoView.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.video))
+//        videoView.start()
+//        videoView.setOnCompletionListener {
+//            videoView.start()
+//        }
     }
 }

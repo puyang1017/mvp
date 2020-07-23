@@ -27,6 +27,7 @@ import com.trello.rxlifecycle3.RxLifecycle;
 import com.trello.rxlifecycle3.android.ActivityEvent;
 import com.trello.rxlifecycle3.android.FragmentEvent;
 import com.trello.rxlifecycle3.android.RxLifecycleAndroid;
+import com.umeng.analytics.MobclickAgent;
 
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
@@ -141,8 +142,13 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
     @Override
     @CallSuper
     public void onResume() {
-        super.onResume();
         lifecycleSubject.onNext(FragmentEvent.RESUME);
+        super.onResume();
+        try {
+            MobclickAgent.onPageStart(getClass().getName());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -150,6 +156,11 @@ public abstract class XFragmentation<P extends IPresent> extends SupportFragment
     public void onPause() {
         lifecycleSubject.onNext(FragmentEvent.PAUSE);
         super.onPause();
+        try {
+            MobclickAgent.onPageEnd(getClass().getName());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -27,6 +27,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
 }
 
 
@@ -55,25 +61,22 @@ dependencies {
     api rootProject.ext.dependencies["eventbus"]
     api rootProject.ext.dependencies["barlibrary"]
     api rootProject.ext.dependencies["swipebacklayout"]
-    //    api rootProject.ext.dependencies["umeng-common"]
-    //    api rootProject.ext.dependencies["umeng-analytics"]
-    //    api rootProject.ext.dependencies["umeng-debug"]
-    //    api rootProject.ext.dependencies["umeng-share"]
-    //    api rootProject.ext.dependencies["umeng-share-qq"]
-    //    api rootProject.ext.dependencies["umeng-share-wechat"]
-    //    api rootProject.ext.dependencies["umeng-share-sina"]
     api rootProject.ext.dependencies["fragmentation"]
     api rootProject.ext.dependencies["facebookrebound"]
     api files('libs/commons-codec-1.11.jar')
-    api files('libs/umeng-analytics-8.1.6.jar')
-    api files('libs/umeng-common-2.2.5.jar')
-    api files('libs/umeng-share-core-6.9.4.jar')
-    api files('libs/umeng-share-QQ-simplify-6.9.4.jar')
-    api files('libs/umeng-share-sina-simplify-6.9.4.jar')
-    api files('libs/umeng-share-wechat-simplify-6.9.4.jar')
-    api files('libs/umeng-shareboard-widget-6.9.4.jar')
-    api files('libs/umeng-sharetool-6.9.4.jar')
-    api files('libs/utdid4all-1.1.5.3_proguard.jar')
+
+//    implementation(name: 'umeng-asms-armeabi-v1.1.3', ext: 'aar')
+//    implementation(name: 'umeng-crash-armeabi-v0.0.4', ext: 'aar')
+    implementation 'com.umeng.umsdk:common:9.1.0'
+
+//    api files('libs/utdid4all-1.5.2-proguard.jar')
+//    api files('libs/umeng-share-core-6.9.4.jar')
+//    api files('libs/umeng-share-QQ-simplify-6.9.4.jar')
+//    api files('libs/umeng-share-sina-simplify-6.9.4.jar')
+//    api files('libs/umeng-share-wechat-simplify-6.9.4.jar')
+//    api files('libs/umeng-shareboard-widget-6.9.4.jar')
+//    api files('libs/umeng-sharetool-6.9.4.jar')
+
     implementation files('libs/org.eclipse.paho.client.mqttv3-1.2.2.jar')
 }
 repositories {
