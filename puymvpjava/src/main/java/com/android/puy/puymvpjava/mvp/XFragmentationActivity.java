@@ -16,6 +16,7 @@ import com.android.puy.puymvpjava.XDroidConf;
 import com.android.puy.puymvpjava.customs.material.MaterialRippleLayout;
 import com.android.puy.puymvpjava.event.BusProvider;
 import com.android.puy.puymvpjava.kit.KnifeKit;
+import com.android.puy.puymvpjava.router.AppManager;
 import com.gyf.immersionbar.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle3.LifecycleProvider;
@@ -76,6 +77,7 @@ public abstract class XFragmentationActivity<P extends IPresent> extends Support
             EventBus.getDefault().register(this);
         }
         initData(savedInstanceState);
+        AppManager.getInstance().addActivity(this);
     }
 
     @Override
