@@ -681,7 +681,9 @@ public class MqttV3 {
     public void destory() {
         try {
             if (mqttClient != null) {
-                mqttClient.disconnect();
+                if(mqttClient.isConnected()) {
+                    mqttClient.disconnect();
+                }
                 mqttClient.close();
             }
         } catch (MqttException e) {

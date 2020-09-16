@@ -15,7 +15,6 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.android.puy.puymvpjava.mvp.XFragmentationActivity
-import com.android.puy.puymvpjava.router.AppManager
 import kotlinx.android.synthetic.main.activity_main.*
 import persents.Pmain
 import views.IVmain
