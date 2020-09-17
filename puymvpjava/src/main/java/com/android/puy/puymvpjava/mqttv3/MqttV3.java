@@ -43,6 +43,7 @@ public class MqttV3 {
         this.subscribeQos = builder.subscribeQos;
         this.publishQos = builder.publishQos;
         this.clientId = builder.clientId;
+        this.maxReconnectDelay = builder.maxReconnectDelay;
         this.automaticReconnect = builder.automaticReconnect;
         this.cleanSession = builder.cleanSession;
         this.connectionTimeout = builder.connectionTimeout;
@@ -54,6 +55,7 @@ public class MqttV3 {
         this.mIMqttStatusListener = builder.mIMqttStatusListener;
         mMqttConnectOptions = new MqttConnectOptions();
         mMqttConnectOptions.setAutomaticReconnect(this.automaticReconnect);
+        mMqttConnectOptions.setMaxReconnectDelay(this.maxReconnectDelay);
         mMqttConnectOptions.setCleanSession(this.cleanSession);
         mMqttConnectOptions.setUserName(this.userName);
         mMqttConnectOptions.setPassword(this.password.toCharArray());
@@ -408,6 +410,7 @@ public class MqttV3 {
     private String password;
     private int connectionTimeout;
     private int keepAliveInterval;
+    private int maxReconnectDelay;
     private boolean automaticReconnect;
     private boolean cleanSession;
     private boolean publishMsgRetained;
@@ -476,6 +479,7 @@ public class MqttV3 {
         private int connectionTimeout = MqttConnectOptions.CONNECTION_TIMEOUT_DEFAULT / 3;
         private int keepAliveInterval = MqttConnectOptions.KEEP_ALIVE_INTERVAL_DEFAULT / 3;
         private boolean automaticReconnect = true;
+        private int  maxReconnectDelay = 128000;
         private boolean cleanSession = false;
         private boolean publishMsgRetained = true;
         private Object userContext = null;
@@ -501,6 +505,15 @@ public class MqttV3 {
          */
         public Builder setAlibabaCloud(boolean isAlibabaCloud) {
             this.isAlibabaCloud = isAlibabaCloud;
+            return this;
+        }
+
+
+        /**
+         * @param maxReconnectDelay 是否是阿里云mqtt
+         */
+        public Builder setMaxReconnectDelay(int maxReconnectDelay) {
+            this.maxReconnectDelay = maxReconnectDelay;
             return this;
         }
 
