@@ -160,6 +160,15 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
         mImmersionBar.init();
     }
 
+    public void initStatusBar(int id, boolean statusBarDark, int navigationBarColor) {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.titleBar(id);
+        mImmersionBar.statusBarDarkFont(statusBarDark);
+        mImmersionBar.keyboardEnable(true);
+        mImmersionBar.navigationBarColor(navigationBarColor);
+        mImmersionBar.init();
+    }
+
     public void setMaterialRipple(int color,View ...views){
         for (View view:views){
             MaterialRippleLayout.on(view)
