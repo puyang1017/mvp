@@ -267,6 +267,7 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
         mImmersionBar.statusBarDarkFont(statusBarDark);
         mImmersionBar.keyboardEnable(true);
         mImmersionBar.navigationBarColor(navigationBarColor);
+
         mImmersionBar.init();
     }
 
