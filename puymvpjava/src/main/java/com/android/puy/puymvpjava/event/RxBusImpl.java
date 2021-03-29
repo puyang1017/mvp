@@ -35,19 +35,21 @@ public class RxBusImpl implements IBus {
 
     @Override
     public void register(Object object) {
-        mSubscriptionMap.put(object.getClass().getName(),new ArrayList<>());
-        System.out.println("rexBus register "+object.getClass().getName()+" "+mSubscriptionMap.size());
+        mSubscriptionMap.put(object.getClass().getName(), new ArrayList<>());
+        System.out.println("rxBus register put " + object.getClass().getName() + " " + mSubscriptionMap.size());
     }
 
     @Override
     public void unregister(Object object) {
         try {
-            System.out.println("rexBus unregister "+mSubscriptionMap.size());
-            for(Subscription subscription :mSubscriptionMap.get(object.getClass().getName())){
-                System.out.println("rexBus unregister "+object.getClass().getName());
-                if(subscription!=null) subscription.cancel();
+            System.out.println("rxBus unregister " + mSubscriptionMap.size());
+            for (Subscription subscription : mSubscriptionMap.get(object.getClass().getName())) {
+                System.out.println("rxBus unregister " + object.getClass().getName());
+                if (subscription != null) subscription.cancel();
             }
-        }catch (Exception e){
+            mSubscriptionMap.remove(object.getClass().getName());
+            System.out.println("rxBus unregister remove" + object.getClass().getName() + " " + mSubscriptionMap.size());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -63,14 +65,20 @@ public class RxBusImpl implements IBus {
     }
 
     @SuppressLint("CheckResult")
-    public <T extends IEvent> Flowable<T> toFlowable(Object object , Class<T> eventType) {
+    public <T extends IEvent> Flowable<T> toFlowable(Object object, Class<T> eventType) {
         Flowable<T> flowable = bus.ofType(eventType).onBackpressureBuffer();
         return flowable.doOnSubscribe(subscription -> {
             try {
-                System.out.println("rexBus toFlowable "+object.getClass().getName());
-                mSubscriptionMap.get(object.getClass().getName()).add(subscription);
-                System.out.println("rexBus toFlowable "+object.getClass().getName()+" "+mSubscriptionMap.size());
-            }catch (Exception e){
+                System.out.println("rxBus toFlowable " + object.getClass().getName());
+                List<Subscription> subscriptions = mSubscriptionMap.get(object.getClass().getName());
+                if (subscriptions != null) {
+                    subscriptions.add(subscription);
+                    System.out.println("rxBus toFlowable " + object.getClass().getName() + " " + mSubscriptionMap.size());
+                    mSubscriptionMap.get(object.getClass().getName()).add(subscription);
+                } else {
+                    System.out.println("rxBus toFlowable mSubscriptionMap no find " + object.getClass().getName());
+                }
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         });
