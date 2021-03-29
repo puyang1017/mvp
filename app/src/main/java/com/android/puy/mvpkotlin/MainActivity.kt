@@ -14,8 +14,11 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.android.puy.puymvpjava.event.BusProvider
+import com.android.puy.puymvpjava.event.RxBusImpl
 import com.android.puy.puymvpjava.mvp.XFragmentationActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import models.LoginSuccessEvent
 import persents.Pmain
 import views.IVmain
 
@@ -36,7 +39,10 @@ class MainActivity : XFragmentationActivity<Pmain>(), IVmain {
 //        videoView.setOnCompletionListener {
 //            videoView.start()
 //        }
-        button.setOnClickListener { addShortCut(context) }
+        button.setOnClickListener {
+            BusProvider.getBus().post(LoginSuccessEvent())
+            //addShortCut(context)
+        }
         registerNetwork()
     }
 
