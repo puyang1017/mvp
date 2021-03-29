@@ -76,6 +76,9 @@ public abstract class XFragmentationActivity<P extends IPresent> extends Support
         if (useEventBus()) {
             EventBus.getDefault().register(this);
         }
+        if (useRxBus()) {
+            BusProvider.getBus().register(this);
+        }
         initData(savedInstanceState);
         AppManager.getInstance().addActivity(this);
     }
@@ -106,9 +109,6 @@ public abstract class XFragmentationActivity<P extends IPresent> extends Support
     protected void onStart() {
         super.onStart();
         lifecycleSubject.onNext(ActivityEvent.START);
-        if (useRxBus()) {
-            BusProvider.getBus().register(this);
-        }
     }
 
     @Override

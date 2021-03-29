@@ -40,6 +40,9 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
         if (useEventBus()) {
             EventBus.getDefault().register(this);
         }
+        if (useRxBus()) {
+            BusProvider.getBus().register(this);
+        }
         initData(savedInstanceState);
         AppManager.getInstance().addActivity(this);
     }
@@ -69,9 +72,6 @@ public abstract class XActivity<P extends IPresent> extends RxAppCompatActivity 
     @Override
     protected void onStart() {
         super.onStart();
-        if (useRxBus()) {
-            BusProvider.getBus().register(this);
-        }
     }
 
 

@@ -84,6 +84,9 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
         if (useEventBus()) {
             EventBus.getDefault().register(this);
         }
+        if (useRxBus()) {
+            BusProvider.getBus().register(this);
+        }
         initData(savedInstanceState);
         AppManager.getInstance().addActivity(this);
     }
@@ -115,9 +118,6 @@ public abstract class XBackActivity<P extends IPresent> extends SwipeBackActivit
     protected void onStart() {
         super.onStart();
         lifecycleSubject.onNext(ActivityEvent.START);
-        if (useRxBus()) {
-            BusProvider.getBus().register(this);
-        }
     }
 
     @Override

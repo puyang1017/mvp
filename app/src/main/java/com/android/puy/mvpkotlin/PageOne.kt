@@ -2,6 +2,8 @@ package com.android.puy.mvpkotlin
 
 import android.os.Bundle
 import com.android.puy.puymvpjava.mvp.XFragmentation
+import com.android.puy.puymvpjava.router.Router
+import kotlinx.android.synthetic.main.activity_page.*
 import persents.Pmain
 import views.IVmain
 
@@ -16,6 +18,9 @@ class PageOne : XFragmentation<Pmain>(), IVmain {
     }
 
     override fun initData(savedInstanceState: Bundle?) {
+        text.setOnClickListener {
+            Router.newIntent(context).to(TestActivity::class.java).launch()
+        }
     }
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {

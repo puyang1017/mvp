@@ -23,7 +23,7 @@ public class RxBusImpl implements IBus {
 
     private FlowableProcessor<Object> bus = null;
 
-    private HashMap<Object, List<Subscription>> mSubscriptionMap = new HashMap<>();
+    private HashMap<String, List<Subscription>> mSubscriptionMap = new HashMap<>();
 
     private RxBusImpl() {
         bus = PublishProcessor.create().toSerialized();
@@ -35,14 +35,18 @@ public class RxBusImpl implements IBus {
 
     @Override
     public void register(Object object) {
-        mSubscriptionMap.put(object,new ArrayList<>());
+        mSubscriptionMap.put(object.getClass().getName(),new ArrayList<>());
     }
 
     @Override
     public void unregister(Object object) {
-       for(Subscription subscription :mSubscriptionMap.get(object)){
-           if(subscription!=null) subscription.cancel();
-       }
+        try {
+            for(Subscription subscription :mSubscriptionMap.get(object.getClass().getName())){
+                if(subscription!=null) subscription.cancel();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -58,8 +62,13 @@ public class RxBusImpl implements IBus {
     @SuppressLint("CheckResult")
     public <T extends IEvent> Flowable<T> toFlowable(Object object , Class<T> eventType) {
         Flowable<T> flowable = bus.ofType(eventType).onBackpressureBuffer();
-        flowable.doOnSubscribe(subscription -> mSubscriptionMap.get(object).add(subscription));
-        return flowable;
+        return flowable.doOnSubscribe(subscription -> {
+            try {
+                mSubscriptionMap.get(object.getClass().getName()).add(subscription);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        });
     }
 
     private static class Holder {
