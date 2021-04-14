@@ -1060,6 +1060,7 @@ public class Kits {
                 case NETWORK_TYPE_3G:
                 case NETWORK_TYPE_2G:
                 case NETWORK_TYPE_4G:
+                case NETWORK_TYPE_5G:
                     return false;
             }
             return false;
