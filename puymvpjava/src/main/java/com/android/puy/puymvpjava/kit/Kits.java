@@ -1023,6 +1023,7 @@ public class Kits {
         public static final String NETWORK_TYPE_3G = "3G";
         public static final String NETWORK_TYPE_2G = "2G";
         public static final String NETWORK_TYPE_4G = "4G";
+        public static final String NETWORK_TYPE_5G = "5G";
         public static final String NETWORK_TYPE_UNKNOWN = "unknown";
         public static final String NETWORK_TYPE_DISCONNECT = "disconnect";
 
@@ -1110,6 +1111,9 @@ public class Kits {
                             break;
                         case TelephonyManager.NETWORK_TYPE_LTE:    //api<11 : replace by 13
                             type = NETWORK_TYPE_4G;
+                            break;
+                        case TelephonyManager.NETWORK_TYPE_NR:     //api 29
+                            type = NETWORK_TYPE_5G;
                             break;
                         default:
                             // http://baike.baidu.com/item/TD-SCDMA 中国移动 联通 电信 三种3G制式
