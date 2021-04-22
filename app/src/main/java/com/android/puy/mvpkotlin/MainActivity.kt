@@ -14,12 +14,10 @@ import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.android.puy.puymvpjava.dialogmanager.DialogManager
 import com.android.puy.puymvpjava.dialogmanager.DialogParam
-import com.android.puy.puymvpjava.dialogmanager.OnDismissListener
 import com.android.puy.puymvpjava.event.BusProvider
 import com.android.puy.puymvpjava.mvp.XFragmentationActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -59,7 +57,7 @@ class MainActivity : XFragmentationActivity<Pmain>(), IVmain {
         val alertDialog2: DialogSample
         val alertDialog3: DialogSample
         val alertDialog4: DialogSample
-        val prioritys = intArrayOf(3, 1, 2, 4)
+        val prioritys = intArrayOf(3, 1, 2, 4,5)
         alertDialog4 = DialogSample(context)
         alertDialog4.setTitle("温馨提示")
         alertDialog4.setMessage("第四个弹窗,优先级：" + prioritys[3])
@@ -96,11 +94,17 @@ class MainActivity : XFragmentationActivity<Pmain>(), IVmain {
         DialogManager.getInstance().add(DialogParam.Builder().dialog(alertDialog2).priority(prioritys[1]).build())
         DialogManager.getInstance().add(DialogParam.Builder().dialog(alertDialog3).priority(prioritys[2]).build())
         DialogManager.getInstance().show()
+
+//        val alertDialog5 =  XpopupPriorityDialog(XPopup.Builder(context).dismissOnTouchOutside(true).dismissOnBackPressed(false))
+//        alertDialog5.asCustom(CenterPopupForIpSetting(context))
         Handler().postDelayed({
             val dialogParam = DialogParam.Builder().dialog(alertDialog4).priority(prioritys[3]).build()
+//            val dialogParamXPopup =   DialogParam.Builder().dialog(alertDialog5).priority(prioritys[4]).build()
             DialogManager.getInstance().add(dialogParam)
+//            DialogManager.getInstance().add(dialogParamXPopup)
 //            DialogManager.getInstance().show()
             DialogManager.getInstance().show(dialogParam)
+//            DialogManager.getInstance().show(dialogParamXPopup)
         },3000)
     }
 
