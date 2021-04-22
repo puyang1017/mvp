@@ -2,6 +2,7 @@ package com.android.puy.mvpkotlin
 
 import android.app.PendingIntent
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.ShortcutInfo
 import android.content.pm.ShortcutManager
@@ -11,11 +12,15 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.android.puy.puymvpjava.dialogmanager.DialogManager
+import com.android.puy.puymvpjava.dialogmanager.DialogParam
+import com.android.puy.puymvpjava.dialogmanager.OnDismissListener
 import com.android.puy.puymvpjava.event.BusProvider
-import com.android.puy.puymvpjava.event.RxBusImpl
 import com.android.puy.puymvpjava.mvp.XFragmentationActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import models.LoginSuccessEvent
@@ -44,6 +49,59 @@ class MainActivity : XFragmentationActivity<Pmain>(), IVmain {
             //addShortCut(context)
         }
         registerNetwork()
+
+        testDialog()
+    }
+
+    private fun testDialog() {
+        //弹窗权限级别控制测试
+        val alertDialog1: DialogSample
+        val alertDialog2: DialogSample
+        val alertDialog3: DialogSample
+        val alertDialog4: DialogSample
+        val prioritys = intArrayOf(3, 1, 2, 4)
+        alertDialog4 = DialogSample(context)
+        alertDialog4.setTitle("温馨提示")
+        alertDialog4.setMessage("第四个弹窗,优先级：" + prioritys[3])
+        alertDialog4.setCancelable(true)
+        alertDialog4.setButton(DialogInterface.BUTTON_POSITIVE, "关闭") { dialog, which ->
+            alertDialog4.dismiss(false)
+        }
+
+
+        alertDialog1 = DialogSample(context)
+        alertDialog1.setTitle("温馨提示")
+        alertDialog1.setMessage("第一个弹窗,优先级：" + prioritys[0])
+        alertDialog1.setCancelable(true)
+        alertDialog1.setButton(DialogInterface.BUTTON_POSITIVE, "关闭") { dialog, which ->
+            /*调用此方法传false告诉DialogManager此窗口
+              dismiss是用户自己关闭的，而非被优先级更高的弹
+              窗show后被挤出，这种情况优先级更高的弹窗dismiss
+              后DialogManager不会重新show此弹窗*/
+            alertDialog1.dismiss(false)
+        }
+        alertDialog2 = DialogSample(context)
+        alertDialog2.setTitle("温馨提示")
+        alertDialog2.setMessage("第二个弹窗,优先级：" + prioritys[1])
+        alertDialog2.setCancelable(true)
+        alertDialog2.setButton(DialogInterface.BUTTON_POSITIVE, "关闭") { dialog, which ->
+            alertDialog1.dismiss(false)
+        }
+        alertDialog3 = DialogSample(context)
+        alertDialog3.setTitle("温馨提示")
+        alertDialog3.setMessage("第三个弹窗,优先级：" + prioritys[2])
+        alertDialog3.setCancelable(true)
+        alertDialog3.setButton(DialogInterface.BUTTON_POSITIVE, "关闭") { dialog, which -> alertDialog1.dismiss(false) }
+        DialogManager.getInstance().add(DialogParam.Builder().dialog(alertDialog1).priority(prioritys[0]).build())
+        DialogManager.getInstance().add(DialogParam.Builder().dialog(alertDialog2).priority(prioritys[1]).build())
+        DialogManager.getInstance().add(DialogParam.Builder().dialog(alertDialog3).priority(prioritys[2]).build())
+        DialogManager.getInstance().show()
+        Handler().postDelayed({
+            val dialogParam = DialogParam.Builder().dialog(alertDialog4).priority(prioritys[3]).build()
+            DialogManager.getInstance().add(dialogParam)
+//            DialogManager.getInstance().show()
+            DialogManager.getInstance().show(dialogParam)
+        },3000)
     }
 
     @RequiresApi(api = VERSION_CODES.O)
