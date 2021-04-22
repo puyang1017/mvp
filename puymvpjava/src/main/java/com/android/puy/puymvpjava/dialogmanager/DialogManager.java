@@ -36,11 +36,11 @@ public class DialogManager {
      * @param dialogParam 待添加的弹窗
      */
     public synchronized void add(DialogParam dialogParam) {
-        if (dialogParam != null && dialogParam.getDialog() != null) {
+        if (dialogParam != null && dialogParam.getPriorityDialog() != null) {
             if (mDialogs == null) {
                 mDialogs = new ArrayList<>();
             }
-            dialogParam.getDialog().setOnShowListener(new OnShowListener() {
+            dialogParam.getPriorityDialog().setOnShowListener(new OnShowListener() {
                 @Override
                 public void onShow() {
                     dialogParam.setShowing(true);
@@ -48,7 +48,7 @@ public class DialogManager {
                 }
             });
 
-            dialogParam.getDialog().setOnDismissListener(new OnDismissListener() {
+            dialogParam.getPriorityDialog().setOnDismissListener(new OnDismissListener() {
                 @Override
                 public void onDismiss(boolean isCrowdOut) {
                     dialogParam.setShowing(false);
@@ -70,10 +70,10 @@ public class DialogManager {
      * @param dialogParam 待展示的弹窗
      */
     public synchronized void show(DialogParam dialogParam) {
-        if (dialogParam != null && dialogParam.getDialog() != null) {
+        if (dialogParam != null && dialogParam.getPriorityDialog() != null) {
             if (mDialogs == null) {
-                if (dialogParam.getDialog().isCanShow()) {
-                    dialogParam.getDialog().show();
+                if (dialogParam.getPriorityDialog().isCanShow()) {
+                    dialogParam.getPriorityDialog().show();
                 }
             } else {
                 /*判断优先级及是否可展示*/
@@ -88,9 +88,9 @@ public class DialogManager {
     public synchronized void show() {
         DialogParam dialogParam = getMaxPriorityDialog();
         if (dialogParam != null) {
-            Dialog dialog = dialogParam.getDialog();
-            if (dialog != null && dialog.isCanShow()) {
-                dialog.show();
+            PriorityDialog priorityDialog = dialogParam.getPriorityDialog();
+            if (priorityDialog != null && priorityDialog.isCanShow()) {
+                priorityDialog.show();
             }
         }
     }
@@ -107,9 +107,9 @@ public class DialogManager {
             }
             for (int i = 0, size = mDialogs.size(); i < size; i++) {
                 if (mDialogs.get(i) != null) {
-                    Dialog dialog = mDialogs.get(i).getDialog();
-                    if (dialog != null) {
-                        dialog.dismiss(false);
+                    PriorityDialog priorityDialog = mDialogs.get(i).getPriorityDialog();
+                    if (priorityDialog != null) {
+                        priorityDialog.dismiss(false);
                     }
                 }
             }
@@ -132,9 +132,9 @@ public class DialogManager {
             if (dismiss) {
                 for (int i = 0, size = mDialogs.size(); i < size; i++) {
                     if (mDialogs.get(i) != null) {
-                        Dialog dialog = mDialogs.get(i).getDialog();
-                        if (dialog != null) {
-                            dialog.dismiss(false);
+                        PriorityDialog priorityDialog = mDialogs.get(i).getPriorityDialog();
+                        if (priorityDialog != null) {
+                            priorityDialog.dismiss(false);
                         }
                     }
                 }
@@ -149,8 +149,8 @@ public class DialogManager {
     private synchronized void showNext() {
         DialogParam dialog = getMaxPriorityDialog();
         if (dialog != null) {
-            if (dialog.isPrepareShow() && dialog.getDialog().isCanShow()) {
-                dialog.getDialog().show();
+            if (dialog.isPrepareShow() && dialog.getPriorityDialog().isCanShow()) {
+                dialog.getPriorityDialog().show();
             }
         }
 
@@ -162,19 +162,19 @@ public class DialogManager {
      * @param dialogParam 待展示的弹窗
      */
     private void maybeShow(DialogParam dialogParam) {
-        if (dialogParam != null && dialogParam.getDialog() != null) {
+        if (dialogParam != null && dialogParam.getPriorityDialog() != null) {
             DialogParam topShowDialog = getShowingDialog();
             if (topShowDialog == null) {
-                if (dialogParam.getDialog().isCanShow()) {
-                    dialogParam.getDialog().show();
+                if (dialogParam.getPriorityDialog().isCanShow()) {
+                    dialogParam.getPriorityDialog().show();
                 }
             } else {
                 /*获取优先级*/
                 int priority = dialogParam.getPriority();
                 if (priority >= topShowDialog.getPriority()) {
-                    if (dialogParam.getDialog().isCanShow()) {
-                        dialogParam.getDialog().show();
-                        topShowDialog.getDialog().dismiss(true);
+                    if (dialogParam.getPriorityDialog().isCanShow()) {
+                        dialogParam.getPriorityDialog().show();
+                        topShowDialog.getPriorityDialog().dismiss(true);
                         /*设置参数支持当前show关闭后自动show带该参数的优先级最高的弹窗*/
                         topShowDialog.setPrepareShow(true);
                     }
@@ -218,7 +218,7 @@ public class DialogManager {
         if (mDialogs != null) {
             for (int i = 0, size = mDialogs.size(); i < size; i++) {
                 DialogParam dialogParam = mDialogs.get(i);
-                if (dialogParam != null && dialogParam.getDialog() != null && dialogParam.isShowing()) {
+                if (dialogParam != null && dialogParam.getPriorityDialog() != null && dialogParam.isShowing()) {
                     return dialogParam;
                 }
             }

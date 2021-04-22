@@ -4,11 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.android.puy.puymvpjava.dialogmanager.Dialog;
+import com.android.puy.puymvpjava.dialogmanager.PriorityDialog;
 /**
  * Created by puy on 2021/4/22 13:52
  */
-class DialogSample extends AlertDialog implements Dialog {
+class DialogSample extends AlertDialog implements PriorityDialog {
     protected DialogSample(Context context) {
         super(context);
     }

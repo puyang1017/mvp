@@ -11,7 +11,7 @@ public class DialogParam {
     /**
      * “窗口”
      */
-    private Dialog dialog;
+    private PriorityDialog priorityDialog;
     /**
      * 优先级，值越大优先级越高
      */
@@ -29,17 +29,17 @@ public class DialogParam {
     private boolean prepareShow;
 
     private DialogParam(Builder builder) {
-        dialog = builder.dialog;
+        priorityDialog = builder.priorityDialog;
         priority = builder.priority;
         prepareShow = builder.prepareShow;
     }
 
-    public Dialog getDialog() {
-        return dialog;
+    public PriorityDialog getPriorityDialog() {
+        return priorityDialog;
     }
 
-    public void setDialog(Dialog dialog) {
-        this.dialog = dialog;
+    public void setPriorityDialog(PriorityDialog priorityDialog) {
+        this.priorityDialog = priorityDialog;
     }
 
     public int getPriority() {
@@ -70,7 +70,7 @@ public class DialogParam {
         /**
          * “窗口”
          */
-        private Dialog dialog;
+        private PriorityDialog priorityDialog;
         /**
          * 优先级，值越大优先级越高
          */
@@ -83,8 +83,8 @@ public class DialogParam {
          */
         private boolean prepareShow = true;
 
-        public Builder dialog(Dialog dialog) {
-            this.dialog = dialog;
+        public Builder dialog(PriorityDialog priorityDialog) {
+            this.priorityDialog = priorityDialog;
             return this;
         }
 
