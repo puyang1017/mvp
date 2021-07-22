@@ -144,6 +144,32 @@ public class DialogManager {
     }
 
     /**
+     * 检测堆栈里是否有弹窗
+     *
+     * @param dialogParam
+     * @return
+     */
+    public boolean checkDialog(DialogParam dialogParam) {
+        if (dialogParam != null && dialogParam.getPriorityDialog() != null) {
+            if (mDialogs == null) return false;
+            return mDialogs.contains(dialogParam);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 移除dialog
+     * @param dialogParam
+     */
+    public void removeDialog(DialogParam dialogParam) {
+        if (dialogParam != null && dialogParam.getPriorityDialog() != null) {
+            if (mDialogs == null) return;
+            mDialogs.remove(dialogParam);
+        }
+    }
+
+    /**
      * 展示下一个优先级最大的Dialog（非自行调用dismiss而是被优先级高的弹窗show后挤掉）
      */
     private synchronized void showNext() {
