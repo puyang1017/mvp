@@ -159,7 +159,26 @@ public class DialogManager {
     }
 
     /**
+     * 检测堆栈里是否有弹窗
+     *
+     * @param priorityDialog
+     * @return
+     */
+    public boolean checkDialog(PriorityDialog priorityDialog) {
+        if (priorityDialog != null) {
+            if (mDialogs == null) return false;
+            for (DialogParam dialogParam : mDialogs) {
+                if (dialogParam.getPriorityDialog().equals(priorityDialog)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
      * 移除dialog
+     *
      * @param dialogParam
      */
     public void removeDialog(DialogParam dialogParam) {
