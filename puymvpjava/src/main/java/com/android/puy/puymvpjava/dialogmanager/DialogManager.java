@@ -2,6 +2,7 @@ package com.android.puy.puymvpjava.dialogmanager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * dialog 管理器
@@ -185,6 +186,26 @@ public class DialogManager {
         if (dialogParam != null && dialogParam.getPriorityDialog() != null) {
             if (mDialogs == null) return;
             mDialogs.remove(dialogParam);
+        }
+    }
+
+    /**
+     * 移除dialog
+     *
+     * @param priorityDialog
+     */
+    public void removeDialog(PriorityDialog priorityDialog) {
+        if (priorityDialog != null) {
+            if (mDialogs == null) return;
+            CopyOnWriteArrayList<DialogParam> mDialogsBuffer = new CopyOnWriteArrayList<>();
+            mDialogsBuffer.addAll(mDialogs);
+            for (DialogParam dialogParam : mDialogsBuffer) {
+                if (dialogParam.getPriorityDialog().equals(priorityDialog)) {
+                    mDialogsBuffer.remove(dialogParam);
+                }
+            }
+            mDialogs.clear();
+            mDialogs.addAll(mDialogsBuffer);
         }
     }
 
