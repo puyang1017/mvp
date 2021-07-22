@@ -209,6 +209,20 @@ public class DialogManager {
         }
     }
 
+    public List<DialogParam> getDialogs(int priority) {
+        ArrayList<DialogParam> buffer = new ArrayList<>();
+        for (DialogParam dialogParam : mDialogs) {
+            if (dialogParam.getPriority() == priority) {
+                buffer.add(dialogParam);
+            }
+        }
+        return buffer;
+    }
+
+    public List<DialogParam> getDialogs() {
+        return mDialogs;
+    }
+
     /**
      * 展示下一个优先级最大的Dialog（非自行调用dismiss而是被优先级高的弹窗show后挤掉）
      */
