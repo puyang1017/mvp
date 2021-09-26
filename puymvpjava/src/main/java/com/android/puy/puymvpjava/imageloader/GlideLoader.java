@@ -5,8 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
@@ -33,144 +35,174 @@ public class GlideLoader implements ILoader {
 
     @Override
     public void loadNet(ImageView target, String url, Options options) {
-        load(getRequestManager(target.getContext()).load(url), target, options);
+        RequestManager requestManager = getRequestManager(target.getContext());
+        if (requestManager != null) {
+            load(requestManager.load(url), target, options);
+        }
     }
 
     @Override
     public void loadNet(ImageView target, String url, Options options, boolean anim) {
-        if (anim) {
-            load(getRequestManager(target.getContext()).load(url), target, options);
-        } else {
-            loadNoAnim(getRequestManager(target.getContext()).load(url), target, options);
+        RequestManager requestManager = getRequestManager(target.getContext());
+        if (requestManager != null) {
+            if (anim) {
+                load(requestManager.load(url), target, options);
+            } else {
+                loadNoAnim(requestManager.load(url), target, options);
+            }
         }
     }
 
 
     @Override
     public void loadNet(ImageView target, String url, Options options, NetLoadCallback netLoadCallback) {
-        load(getRequestManager(target.getContext()).load(url), target, options, netLoadCallback);
+        RequestManager requestManager = getRequestManager(target.getContext());
+        if (requestManager != null) {
+            load(requestManager.load(url), target, options, netLoadCallback);
+        }
     }
 
     @Override
     public void loadNet(ImageView target, String url, Options options, NetLoadCallback netLoadCallback, boolean anim) {
-        if (anim) {
-            load(getRequestManager(target.getContext()).load(url), target, options, netLoadCallback);
-        } else {
-            loadNoAnim(getRequestManager(target.getContext()).load(url), target, options, netLoadCallback);
+        RequestManager requestManager = getRequestManager(target.getContext());
+        if (requestManager != null) {
+            if (anim) {
+                load(requestManager.load(url), target, options, netLoadCallback);
+            } else {
+                loadNoAnim(requestManager.load(url), target, options, netLoadCallback);
+            }
         }
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void loadNet(Context context, String url, Options options, final LoadCallback callback) {
-        RequestBuilder<Drawable> requestBuilder = getRequestManager(context).load(url);
-        if (options == null) options = Options.defaultOptions();
+        RequestManager requestManager = getRequestManager(context);
+        if (requestManager != null) {
+            RequestBuilder<Drawable> requestBuilder = requestManager.load(url);
+            if (options == null) options = Options.defaultOptions();
 
-        RequestOptions requestOptions = new RequestOptions();
-        if (options.loadingResId != Options.RES_NONE) {
-            requestOptions.placeholder(options.loadingResId);
-        }
+            RequestOptions requestOptions = new RequestOptions();
+            if (options.loadingResId != Options.RES_NONE) {
+                requestOptions.placeholder(options.loadingResId);
+            }
 
-        if (options.loadErrorResId != Options.RES_NONE) {
-            requestOptions.error(options.loadErrorResId);
-        }
+            if (options.loadErrorResId != Options.RES_NONE) {
+                requestOptions.error(options.loadErrorResId);
+            }
 
-        DrawableTransitionOptions transitionOptions = new DrawableTransitionOptions()
-                .crossFade();
-        wrapScaleType(requestBuilder, options)
-                .apply(requestOptions)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-                .transition(transitionOptions)
-                .into(new CustomTarget<Drawable>() {
-                    @Override
-                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                        super.onLoadFailed(errorDrawable);
-                        if (callback != null) {
-                            callback.onLoadFailed(errorDrawable);
+            DrawableTransitionOptions transitionOptions = new DrawableTransitionOptions()
+                    .crossFade();
+            wrapScaleType(requestBuilder, options)
+                    .apply(requestOptions)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                    .transition(transitionOptions)
+                    .into(new CustomTarget<Drawable>() {
+                        @Override
+                        public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                            super.onLoadFailed(errorDrawable);
+                            if (callback != null) {
+                                callback.onLoadFailed(errorDrawable);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                        if (callback != null) {
-                            callback.onLoadReady(resource);
+                        @Override
+                        public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                            if (callback != null) {
+                                callback.onLoadReady(resource);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                    }
-                });
+                        }
+                    });
+        }
     }
 
     @SuppressLint("CheckResult")
     @Override
     public void loadNet(Context context, String url, Options options, LoadCallback callback, boolean anim) {
-        RequestBuilder<Drawable> requestBuilder = getRequestManager(context).load(url);
-        if (options == null) options = Options.defaultOptions();
+        RequestManager requestManager = getRequestManager(context);
+        if (requestManager != null) {
+            RequestBuilder<Drawable> requestBuilder = requestManager.load(url);
+            if (options == null) options = Options.defaultOptions();
 
-        RequestOptions requestOptions = new RequestOptions();
-        if (options.loadingResId != Options.RES_NONE) {
+            RequestOptions requestOptions = new RequestOptions();
+            if (options.loadingResId != Options.RES_NONE) {
+                if (anim) {
+                    requestOptions.placeholder(options.loadingResId);
+                } else {
+                    requestOptions.placeholder(options.loadingResId).dontAnimate();
+                }
+            }
+
+            if (options.loadErrorResId != Options.RES_NONE) {
+                requestOptions.error(options.loadErrorResId);
+            }
+
+            RequestBuilder<Drawable> drawableRequestBuilder = wrapScaleType(requestBuilder, options)
+                    .apply(requestOptions)
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
+
             if (anim) {
-                requestOptions.placeholder(options.loadingResId);
-            } else {
-                requestOptions.placeholder(options.loadingResId).dontAnimate();
+                drawableRequestBuilder.transition(new DrawableTransitionOptions().crossFade());
             }
-        }
-
-        if (options.loadErrorResId != Options.RES_NONE) {
-            requestOptions.error(options.loadErrorResId);
-        }
-
-        RequestBuilder<Drawable> drawableRequestBuilder = wrapScaleType(requestBuilder, options)
-                .apply(requestOptions)
-                .diskCacheStrategy(DiskCacheStrategy.RESOURCE);
-
-        if (anim) {
-            drawableRequestBuilder.transition(new DrawableTransitionOptions().crossFade());
-        }
-        drawableRequestBuilder.into(new CustomTarget<Drawable>() {
-            @Override
-            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                super.onLoadFailed(errorDrawable);
-                if (callback != null) {
-                    callback.onLoadFailed(errorDrawable);
+            drawableRequestBuilder.into(new CustomTarget<Drawable>() {
+                @Override
+                public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                    super.onLoadFailed(errorDrawable);
+                    if (callback != null) {
+                        callback.onLoadFailed(errorDrawable);
+                    }
                 }
-            }
 
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-                if (callback != null) {
-                    callback.onLoadReady(resource);
+                @Override
+                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                    if (callback != null) {
+                        callback.onLoadReady(resource);
+                    }
                 }
-            }
 
-            @Override
-            public void onLoadCleared(@Nullable Drawable placeholder) {
+                @Override
+                public void onLoadCleared(@Nullable Drawable placeholder) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     @Override
     public void loadResource(ImageView target, int resId, Options options) {
-        load(getRequestManager(target.getContext()).load(resId), target, options);
+        RequestManager requestManager = getRequestManager(target.getContext());
+        if (requestManager != null) {
+            load(requestManager.load(resId), target, options);
+        }
     }
 
     @Override
     public void loadAssets(ImageView target, String assetName, Options options) {
-        load(getRequestManager(target.getContext()).load("file:///android_asset/" + assetName), target, options);
+        RequestManager requestManager = getRequestManager(target.getContext());
+        if (requestManager != null) {
+            load(requestManager.load("file:///android_asset/" + assetName), target, options);
+        }
     }
 
     @Override
     public void loadFile(ImageView target, File file, Options options) {
-        load(getRequestManager(target.getContext()).load(file), target, options);
+        RequestManager requestManager = getRequestManager(target.getContext());
+        if (requestManager != null) {
+            load(requestManager.load(file), target, options);
+        }
     }
 
     @Override
     public void loadFile(ImageView target, File file, Options options, boolean cache) {
-        load(getRequestManager(target.getContext()).load(file), target, options, cache);
+        RequestManager requestManager = getRequestManager(target.getContext());
+        if (requestManager != null) {
+            load(requestManager.load(file), target, options, cache);
+        }
     }
 
     @Override
@@ -185,17 +217,28 @@ public class GlideLoader implements ILoader {
 
     @Override
     public void resume(Context context) {
-        getRequestManager(context).resumeRequests();
+        RequestManager requestManager = getRequestManager(context);
+        if (requestManager != null) {
+            requestManager.resumeRequests();
+        }
     }
 
     @Override
     public void pause(Context context) {
-        getRequestManager(context).pauseRequests();
+        RequestManager requestManager = getRequestManager(context);
+        if (requestManager != null) {
+            requestManager.pauseRequests();
+        }
     }
 
     private RequestManager getRequestManager(Context context) {
+        if (context == null) return null;
         if (context instanceof Activity) {
-            return Glide.with((Activity) context);
+            if (((Activity) context).isDestroyed() || ((Activity) context).isFinishing()) {
+                return null;
+            } else {
+                return Glide.with((Activity) context);
+            }
         }
         return Glide.with(context);
     }
