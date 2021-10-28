@@ -35,7 +35,7 @@ ext {
             "canary-release"             : "com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2",
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             "multidex"                   : "com.android.support:multidex:1.0.2",
-            "barlibrary"                 : "com.gyf.immersionbar:immersionbar:3.0.0-beta07",
+            "barlibrary"                 : "com.gyf.immersionbar:immersionbar:3.0.0",
             "lottie"                     : "com.airbnb.android:lottie:2.6.1",
             "okhttpUtils"                : "com.zhy:okhttputils:2.6.2",
             "dbflow-processor"           : "com.github.Raizlabs.DBFlow:dbflow-processor:4.2.4",
