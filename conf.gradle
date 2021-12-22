@@ -7,7 +7,7 @@ ext {
             targetSdkVersion : 29,
 
             versionCode      : 23,
-            versionName      : '2.0.0',
+            versionName      : '1.8.4',
     ]
     dependencies = [
             "butterknife"                : "com.jakewharton:butterknife:10.1.0",

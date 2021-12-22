@@ -32,7 +32,29 @@ android {
             dirs 'libs'
         }
     }
-
+//自动追加版本号和版本名称
+    android.libraryVariants.all { variant ->
+        if(variant.name.equalsIgnoreCase("release")) {
+            // 修改aar名称
+            variant.outputs.all { output ->
+                def f = output.outputFileName
+                if (f != null && f.endsWith('.aar')) {
+                    output.outputFileName = "Mvp_"+defaultConfig.versionName+".aar"
+                }
+            }
+            // 复制aar到指定目录
+            variant.assemble.doLast {
+                variant.outputs.all { output ->
+                    // 输出目录在：项目目录/libs/
+                    def outputPath = [project.rootDir.absolutePath, "app", "libs"].join(File.separator)
+                    copy {
+                        from output.outputFile
+                        into outputPath
+                    }
+                }
+            }
+        }
+    }
 }
 
 
