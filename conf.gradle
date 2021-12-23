@@ -29,7 +29,7 @@ ext {
             "rxlifecycle"                : "com.trello.rxlifecycle3:rxlifecycle:3.0.0",
             "rxlifecycle-android"        : "com.trello.rxlifecycle3:rxlifecycle-android:3.0.0",
             "rxlifecycle-components"     : "com.trello.rxlifecycle3:rxlifecycle-components:3.0.0",
-            "rxpermissions"              : "com.github.tbruyelle:rxpermissions:0.10.2",
+            "rxpermissions"              : "com.github.puyang1017:RxPermissions:0.10.2",
 
             "canary-debug"               : "com.squareup.leakcanary:leakcanary-android:1.4-beta2",
             "canary-release"             : "com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2",
