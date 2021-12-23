@@ -2,4 +2,8 @@
 <resources>
     <color name="transparent">#00000000</color>
     <color name="shadow">#cc222222</color>
+    <color name="x_red">#FFC93437</color>
+    <color name="x_blue">#FF375BF1</color>
+    <color name="x_yellow">#FFF7D23E</color>
+    <color name="x_green">#FF34A350</color>
 </resources>

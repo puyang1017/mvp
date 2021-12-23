@@ -22,7 +22,6 @@ allprojects {
         google()
         maven { url "https://maven.aliyun.com/nexus/content/groups/public/" }
         maven { url "https://maven.aliyun.com/nexus/content/repositories/jcenter" }
-        maven { url 'https://dl.bintray.com/umsdk/release' }
         maven { url "https://jitpack.io" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
