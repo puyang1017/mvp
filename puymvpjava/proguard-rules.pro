@@ -168,6 +168,8 @@
 
 -keep class org.eclipse.paho.client.** {*;}
 
+-keep class cn.droidlover.xrecyclerview.** { *; }
+
 
 
 
