@@ -146,15 +146,17 @@ public class MqttV3 {
                 mqttClient.subscribe(MqttV3.this.subscribeTopic, this.subscribeQos, this.userContext,
                         iMqttActionListener, iMqttMessageListener);
             } else {//订阅多个Topic
-                int size = MqttV3.this.subscribeTopics.size();
-                String[] subscribeTopics = MqttV3.this.subscribeTopics.toArray(new String[size]);
-                int[] qos = new int[size];
-                IMqttMessageListener[] messageListeners = new IMqttMessageListener[size];
-                for (int i = 0; i < size; i++) {
-                    qos[i] = QOS_UNRELIABLE;
-                    messageListeners[i] = iMqttMessageListener;
+                if(MqttV3.this.subscribeTopics != null && MqttV3.this.subscribeTopics.size()>0){
+                    int size = MqttV3.this.subscribeTopics.size();
+                    String[] subscribeTopics = MqttV3.this.subscribeTopics.toArray(new String[size]);
+                    int[] qos = new int[size];
+                    IMqttMessageListener[] messageListeners = new IMqttMessageListener[size];
+                    for (int i = 0; i < size; i++) {
+                        qos[i] = QOS_UNRELIABLE;
+                        messageListeners[i] = iMqttMessageListener;
+                    }
+                    mqttClient.subscribe(subscribeTopics, qos, this.userContext, iMqttActionListener, messageListeners);
                 }
-                mqttClient.subscribe(subscribeTopics, qos, this.userContext, iMqttActionListener, messageListeners);
             }
         } catch (MqttException e) {
             e.printStackTrace();
