@@ -1,7 +1,7 @@
 package com.android.puy.puymvpjava.mqttv3;
 
 
-import org.apache.commons.codec.binary.Base64;
+import com.android.puy.puymvpjava.mqttv3.org.apache.commons.codec.binary.Base64;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
