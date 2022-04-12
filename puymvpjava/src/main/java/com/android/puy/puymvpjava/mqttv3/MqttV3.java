@@ -12,6 +12,8 @@ import java.util.List;
 
 import static com.android.puy.puymvpjava.mqttv3.MacSignature.macSignature;
 
+import android.text.TextUtils;
+
 /**
  * mqttv3 封装类
  * Created by puy on 2018/12/4 14:30
@@ -170,6 +172,7 @@ public class MqttV3 {
      */
     public void subscribe(String topic) {
         try {
+            if(TextUtils.isEmpty(topic)) return;
             mqttClient.subscribe(topic, this.subscribeQos, this.userContext,
                     iMqttActionListener, iMqttMessageListener);
         } catch (MqttException e) {
@@ -185,6 +188,7 @@ public class MqttV3 {
      */
     public void subscribe(String topic, int subscribeQos) {
         try {
+            if(TextUtils.isEmpty(topic)) return;
             mqttClient.subscribe(topic, subscribeQos, this.userContext,
                     iMqttActionListener, iMqttMessageListener);
         } catch (MqttException e) {
@@ -243,6 +247,7 @@ public class MqttV3 {
 
     public void unSubscribe(String topic) {
         try {
+            if(TextUtils.isEmpty(topic)) return;
             mqttClient.unsubscribe(topic, this.userContext, iMqttUnActionListener);
         } catch (MqttException e) {
             e.printStackTrace();
@@ -345,6 +350,7 @@ public class MqttV3 {
      */
     public void publishMsg(String topic, String msg, IPublishActionListener iPublishActionListener) {
         try {
+            if(TextUtils.isEmpty(topic)) return;
             //retained:设置发送完消息后是否还保留 与cleanSession差不多
             if (mqttClient.isConnected()) {
                 mqttClient.publish(topic, msg.getBytes(), this.publishQos, this.publishMsgRetained, this.userContext, iPublishActionListener);
@@ -367,6 +373,7 @@ public class MqttV3 {
      */
     public void publishMsg(String topic, int qos, boolean retained, String msg, IPublishActionListener iPublishActionListener) {
         try {
+            if(TextUtils.isEmpty(topic)) return;
             //retained:设置发送完消息后是否还保留 与cleanSession差不多
             if (mqttClient.isConnected()) {
                 mqttClient.publish(topic, msg.getBytes(), qos, retained, this.userContext, iPublishActionListener);
@@ -389,6 +396,7 @@ public class MqttV3 {
      */
     public void publishMsg(String topic, int qos, boolean retained, byte[] msg, IPublishActionListener iPublishActionListener) {
         try {
+            if(TextUtils.isEmpty(topic)) return;
             //retained:设置发送完消息后是否还保留 与cleanSession差不多
             if (mqttClient.isConnected()) {
                 mqttClient.publish(topic, msg, qos, retained, this.userContext, iPublishActionListener);
