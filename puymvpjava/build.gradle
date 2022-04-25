@@ -88,7 +88,7 @@ dependencies {
     api rootProject.ext.dependencies["facebookrebound"]
 
     api 'com.umeng.umsdk:common:9.4.7'
-    implementation files('libs/org.eclipse.paho.client.mqttv3-1.2.2.jar')
+    implementation files('libs/org.eclipse.paho.client.mqttv3-1.2.5.jar')
 }
 repositories {
     mavenCentral()
