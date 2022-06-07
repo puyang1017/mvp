@@ -1,7 +1,8 @@
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-
+plugins{
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+}
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
 
@@ -57,7 +58,6 @@ dependencies {
     api rootProject.ext.dependencies["swipebacklayout"]
     api rootProject.ext.dependencies["fragmentation"]
     api rootProject.ext.dependencies["facebookrebound"]
-    api files('libs/commons-codec-1.11.jar')
     implementation files('libs/org.eclipse.paho.client.mqttv3-1.2.2.jar')
 }
 repositories {
