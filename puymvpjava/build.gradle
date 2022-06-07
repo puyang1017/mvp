@@ -27,7 +27,29 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+//自动追加版本号和版本名称
+    android.libraryVariants.all { variant ->
+        if(variant.name.equalsIgnoreCase("release")) {
+            // 修改aar名称
+            variant.outputs.all { output ->
+                def f = output.outputFileName
+                if (f != null && f.endsWith('.aar')) {
+                    output.outputFileName = "Mvp_"+defaultConfig.versionName+".aar"
+                }
+            }
+            // 复制aar到指定目录
+            variant.assemble.doLast {
+                variant.outputs.all { output ->
+                    // 输出目录在：项目目录/libs/
+                    def outputPath = [project.rootDir.absolutePath, "app", "libs"].join(File.separator)
+                    copy {
+                        from output.outputFile
+                        into outputPath
+                    }
+                }
+            }
+        }
+    }
 }
 
 
@@ -36,8 +58,9 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.1.0'
     api 'com.google.android.material:material:1.1.0'
     api 'androidx.annotation:annotation:1.1.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
-    api rootProject.ext.dependencies["xrecyclerview"]
     api rootProject.ext.dependencies["butterknife"]
     annotationProcessor rootProject.ext.dependencies["butterknife-apt"]
     api rootProject.ext.dependencies["glide"]
